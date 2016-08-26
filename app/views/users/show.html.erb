@@ -5,7 +5,7 @@
 	<% @comments.each do |c| %>
 		<div class="comment">
 			<span>
-				<%= c.author %>
+				<%= User.find(c.author).email %>
 			</span>
 			<p>
 				<%= c.content %>
@@ -15,8 +15,9 @@
 </div>
 
 <h3>Leave a comment:</h3>
-<%= form_for [@user, Comment.new] do |f| %>
-	<%= f.label :content %>
-	<%= f.text_field :content %>
-	<%= f.submit %>
+<%= form_for @user do |f| %>
+	<% f.fields_for :comments do |ff| %>
+		<%= ff.text_field :content %>
+		<%= ff.submit %>
+	<% end %>
 <% end %>
