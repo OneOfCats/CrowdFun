@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 				@comment.user_id = current_user.id
 			end
 			unless @comment.save
-				flash[:notice] = "Can't comment"
+				flash[:notice] = @comment.errors.full_messages.to_sentence
 			end
 			redirect_to @user
 		end
