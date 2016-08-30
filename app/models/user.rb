@@ -4,4 +4,5 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :comments, as: :commentable
+  has_many :commented_on, class_name: 'Comment'
 end

@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 	end
 
 	def show
+		@own_comments = @user.commented_on
 		@comments = @user.comments
 	end
 
@@ -13,9 +14,9 @@ class UsersController < ApplicationController
 		if params[:user][:comments]
 			@comment = @user.comments.new comment_params
 			if current_user
-				@comment.author = current_user.id
+				@comment.user_id = current_user.id
 			end
-			if not @comment.save
+			unless @comment.save
 				flash[:notice] = "Can't comment"
 			end
 			redirect_to @user

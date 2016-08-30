@@ -5,7 +5,21 @@
 	<% @comments.each do |c| %>
 		<div class="comment">
 			<span>
-				<%= User.find(c.author).email %>
+				<%= User.find(c.user_id).email %>
+			</span>
+			<p>
+				<%= c.content %>
+			</p>
+		</div>
+	<% end %>
+</div>
+
+<h3>His comments:</h3>
+<div id="comments">
+	<% @own_comments.each do |c| %>
+		<div class="comment">
+			<span>
+				<%= User.find(c.user_id).email %>
 			</span>
 			<p>
 				<%= c.content %>
