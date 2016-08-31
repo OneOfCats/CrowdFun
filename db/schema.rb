@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160826105835) do
+ActiveRecord::Schema.define(version: 20160831152922) do
+
+  create_table "accounts", force: :cascade do |t|
+    t.integer  "card_number"
+    t.string   "card_holder_first_name"
+    t.string   "card_holder_second_name"
+    t.integer  "balance"
+    t.integer  "user_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
@@ -37,6 +47,7 @@ ActiveRecord::Schema.define(version: 20160826105835) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "account_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
