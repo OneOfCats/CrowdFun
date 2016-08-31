@@ -1,35 +1,15 @@
 <h2>User's show</h2>
+<h3>User's mail:</h3>
+<%= link_to @user.email, @user.email %>
 
 <h3>Comments:</h3>
-<div id="comments">
-	<% @comments.each do |c| %>
-		<div class="comment">
-			<span>
-				<%= User.find(c.user_id).email %>
-			</span>
-			<p>
-				<%= c.content %>
-			</p>
-		</div>
-	<% end %>
-</div>
+<%= render partial: 'comments/comments', locals: {comments: @comments} %>
 
 <h3>His comments:</h3>
-<div id="comments">
-	<% @own_comments.each do |c| %>
-		<div class="comment">
-			<span>
-				<%= User.find(c.user_id).email %>
-			</span>
-			<p>
-				<%= c.content %>
-			</p>
-		</div>
-	<% end %>
-</div>
+<%= render partial: 'comments/comments', locals: {comments: @own_comments, show_direction: true, hide_mail: true} %>
 
 <h3>Leave a comment:</h3>
-<%= form_for @user do |f| %>
+<%= form_for @user, url: user_comments_path(@user), method: :post do |f| %>
 	<% f.fields_for :comments do |ff| %>
 		<%= ff.text_field :content %>
 		<%= ff.submit %>

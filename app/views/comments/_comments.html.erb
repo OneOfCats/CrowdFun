@@ -1,0 +1,19 @@
+<div id="comments">
+	<% comments.each do |c| %>
+		<div class="comment">
+			<% unless local_assigns[:hide_mail] %>
+				<span>
+					<%= User.find(c.user_id).email %>
+				</span>
+			<% end %>
+			<p>
+				<%= c.content %>
+			</p>
+			<% if local_assigns[:show_direction] %>
+				<p>
+					address: <%= link_to User.find(c.commentable_id).email, User.find(c.commentable_id) %>
+				</p>
+			<% end %>
+		</div>
+	<% end %>
+</div>

@@ -11,24 +11,11 @@ class UsersController < ApplicationController
 	end
 
 	def update
-		if params[:user][:comments]
-			@comment = @user.comments.new comment_params
-			if current_user
-				@comment.user_id = current_user.id
-			end
-			unless @comment.save
-				flash[:notice] = @comment.errors.full_messages.to_sentence
-			end
-			redirect_to @user
-		end
+
 	end
 
 	private
 	def find_user
 		@user = User.find(params[:id])
-	end
-
-	def comment_params
-		params[:user].require(:comments).permit!
 	end
 end
