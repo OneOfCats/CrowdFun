@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20160831152922) do
 
   create_table "accounts", force: :cascade do |t|
-    t.integer  "card_number"
+    t.string   "card_number"
     t.string   "card_holder_first_name"
     t.string   "card_holder_second_name"
     t.integer  "balance"

@@ -1,0 +1,14 @@
+<h2>Edit account info</h2>
+
+<%= form_for @account do |f| %>
+	<%= f.label :card_number %>
+	<%= f.text_field :card_number %>
+
+	<%= f.label :card_holder_first_name %>
+	<%= f.text_field :card_holder_first_name %>
+
+	<%= f.label :card_holder_second_name %>
+	<%= f.text_field :card_holder_second_name %>
+
+	<%= f.submit %>
+<% end %>

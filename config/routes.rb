@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     resources :comments, only: [:new, :create, :edit, :update]
   end
 
+  get 'account/edit' => 'accounts#edit', as: :edit_account
+  patch 'account' => 'accounts#update', as: :account
+
   root 'users#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

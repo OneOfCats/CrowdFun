@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'credit_card_validations'
+
 gem 'devise'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
