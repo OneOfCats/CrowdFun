@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-	before_save :set_published_time
+	after_save :set_published_time
 
 	validates :title, :description, :realization_duration, :goal, presence: true
 	validates :goal, format: { :with => /\A\d+(?:\.\d{0,2})?\z/ }
