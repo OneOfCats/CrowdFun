@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+
 	def new
 		@project = Project.new
 	end
@@ -19,7 +20,7 @@ class ProjectsController < ApplicationController
 
 	def show
 		@project = Project.find(params[:id])
-		@time_left = @project.time_left
+		@deadline = @project.deadline
 	end
 
 	private

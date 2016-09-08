@@ -2,8 +2,8 @@
 <%= @project.main_video %>
 <h1><%= @project.title %></h1>
 <%= number_to_currency @project.funds %> out of <%= @project.goal %>
-<% if @time_left %>
-	Time left: <%= @time_left %>
+<% if @deadline %>
+	Time left: <%= distance_of_time_in_words Time.current, @deadline %>
 <% end %>
 <p>
 	<%= @project.description %>
