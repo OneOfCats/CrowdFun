@@ -4,3 +4,9 @@
 <%= number_to_currency @balance %>
 
 <%= link_to 'Edit account info', edit_account_path %>
+
+<%= link_to 'Create project', new_project_path %>
+<h3>Your projects:</h3>
+<% @projects.each do |p| %>
+	<%= link_to p.title, [current_user, p] %>
+<% end %>

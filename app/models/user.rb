@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_many :comments, as: :commentable
   has_many :commented_on, class_name: 'Comment'
+  has_many :projects
   has_one :account
   accepts_nested_attributes_for :account
   after_create :create_associated_account

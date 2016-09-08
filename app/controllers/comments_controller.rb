@@ -2,16 +2,17 @@ class CommentsController < ApplicationController
 	before_action :find_user, only: :create
 
 	def create
-		if params[:user][:comments]
-			@comment = @user.comments.new comment_params
-			if current_user
-				@comment.user_id = current_user.id
-			end
-			unless @comment.save
-				flash[:notice] = @comment.errors.full_messages.to_sentence
-			end
-			redirect_to @user
+		@comment = @user.comments.new comment_params
+		if current_user
+			@comment.user_id = current_user.id
+		else
+			flash[:notice] = 'You are not logged in'
+			redirect_to root_path
 		end
+		unless @comment.save
+			flash[:notice] = @comment.errors.full_messages.to_sentence
+		end
+		redirect_to @user
 	end
 
 	private

@@ -1,0 +1,13 @@
+<%= image_tag @project.main_picture %>
+<%= @project.main_video %>
+<h1><%= @project.title %></h1>
+<%= number_to_currency @project.funds %> out of <%= @project.goal %>
+<% if @time_left %>
+	Time left: <%= @time_left %>
+<% end %>
+<p>
+	<%= @project.description %>
+</p>
+<% if @project.published %>
+	Published at: <%= @project.published_at.to_time %>
+<% end %>

@@ -5,10 +5,12 @@ class AccountsController < ApplicationController
 	end
 
 	def update
-		unless @account.update_attributes account_params
+		if @account.update_attributes account_params
+			flash[:notice] = "Account information eddited"
+		else
 			flash[:notice] = @account.errors.full_messages.to_sentence
 		end
-		redirect_to user_root_url
+		redirect_to edit_account_path
 	end
 
 	private

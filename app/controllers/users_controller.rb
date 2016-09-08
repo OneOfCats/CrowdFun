@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 	def show
 		@own_comments = @user.commented_on
 		@comments = @user.comments
+		@projects = @user.projects.where(published: true)
 	end
 
 	def update
