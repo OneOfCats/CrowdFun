@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-	before_action :logged_in?, only: :create
+	before_action :authenticate_user!
 
 	def new
 		@project = Project.new
@@ -22,12 +22,5 @@ class ProjectsController < ApplicationController
 	private
 	def project_params
 		params.require(:project).permit(:title, :description, :main_picture, :main_video, :realization_duration, :goal, :published)
-	end
-
-	def logged_in?
-		unless current_user
-			flash[:notice] = 'You are not logged in'
-			redirect_to root_path
-		end
 	end
 end
