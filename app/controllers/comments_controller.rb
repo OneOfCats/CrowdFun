@@ -1,26 +1,26 @@
 class CommentsController < ApplicationController
-	before_action :find_user, only: :create
+	before_action :define_relative, only: :create
 
 	def create
-		@comment = @user.comments.new comment_params
+		@comment = @relative.comments.new comment_params
 		if current_user
 			@comment.user_id = current_user.id
+			unless @comment.save
+				flash[:notice] = @comment.errors.full_messages.to_sentence
+			end
 		else
 			flash[:notice] = 'You are not logged in'
-			redirect_to root_path
 		end
-		unless @comment.save
-			flash[:notice] = @comment.errors.full_messages.to_sentence
-		end
-		redirect_to @user
+		redirect_to :back
 	end
 
 	private
-	def find_user
-		@user = User.find(params[:user_id])
+	def define_relative
+		@relative_class = Object.const_get params[:commentable_type]
+		@relative = @relative_class.find(params["#{params[:commentable_type].downcase}_id"])
 	end
 
 	def comment_params
-		params[:user].require(:comments).permit!
+		params["#{params[:commentable_type].downcase}"].require(:comments).permit!
 	end
 end

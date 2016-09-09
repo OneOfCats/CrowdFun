@@ -16,10 +16,13 @@ class ProjectsController < ApplicationController
 	end
 
 	def show
+		@signed = false
 		unless @project.published
 			is_owner @project.user.id
 		end
+		@signed = true
 		@deadline = @project.deadline
+		@comments = @project.comments
 	end
 
 	def edit

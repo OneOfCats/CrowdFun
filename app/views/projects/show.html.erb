@@ -1,5 +1,5 @@
 <br>
-<% if @project.user_id == current_user.id %>
+<% if user_signed_in? && @project.user_id == current_user.id %>
 	<%= link_to 'Редактировать проект', edit_user_project_path %>
 	<%= link_to 'Опубликовать проект', publish_user_project_path unless @project.published %>
 <% end %>
@@ -16,4 +16,19 @@
 </p>
 <% if @project.published %>
 	Published at: <%= @project.published_at.to_time %>
+<% end %>
+
+<h3>Comments:</h3>
+<%= render partial: 'comments/comments', locals: {comments: @comments} %>
+
+<% if current_user %>
+	<h2>Leave a comment:</h2>
+	<%= form_for @project, url: project_comments_path(@project, commentable_type: "Project"), method: :post do |f| %>	
+		<%= f.fields_for :comments do |ff| %>
+			<%= ff.text_field :content %>
+			<%= ff.submit "Comment" %>
+		<% end %>
+	<% end %>
+<% else %>
+	<h2>Login to leave a comment</h2>
 <% end %>

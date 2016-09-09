@@ -13,10 +13,14 @@
 <h3>His comments:</h3>
 <%= render partial: 'comments/comments', locals: {comments: @own_comments, show_direction: true, hide_mail: true} %>
 
-<h3>Leave a comment:</h3>
-<%= form_for @user, url: user_comments_path(@user), method: :post do |f| %>
-	<% f.fields_for :comments do |ff| %>
-		<%= ff.text_field :content %>
-		<%= ff.submit %>
+<% if current_user %>
+	<h3>Leave a comment:</h3>
+	<%= form_for @user, url: user_comments_path(@user, commentable_type: "User"), method: :post do |f| %>
+		<%= f.fields_for :comments do |ff| %>
+			<%= ff.text_field :content %>
+			<%= ff.submit "Comment" %>
+		<% end %>
 	<% end %>
+<% else %>
+	<h2>Login to leave a comment</h2>
 <% end %>
