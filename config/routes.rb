@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   end
 
   resources :projects, only: [:index, :new, :create]
+  get 'users/:user_id/projects/:id/publish' => 'projects#publish', as: :publish_user_project
+
   get 'account/edit' => 'accounts#edit', as: :edit_account
   patch 'account' => 'accounts#update', as: :account
 

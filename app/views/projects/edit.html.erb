@@ -1,0 +1,21 @@
+<h2>Edit project</h2>
+
+<%= form_for [@user, @project] do |f| %>
+	<% unless @project.published %>
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+		<%= f.label :description %>
+		<%= f.text_area :description %>
+	<% end %>
+	<%= f.label :main_picture %>
+	<%= f.text_field :main_picture %>
+	<%= f.label :main_video %>
+	<%= f.text_field :main_video %>
+	<% unless @project.published %>
+		<%= f.label :realization_duration, 'Realization duration (days)' %>
+		<%= f.number_field :realization_duration %>
+		<%= f.label :goal, 'Goal amount' %>
+		<%= f.text_field :goal %>
+	<% end %>
+	<%= f.submit %>
+<% end %>
