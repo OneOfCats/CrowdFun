@@ -4,5 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def index
+  	@projects = Project.where(published: true)
+  	@users = User.all
   end
 end

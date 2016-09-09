@@ -16,6 +16,9 @@ class ProjectsController < ApplicationController
 	end
 
 	def show
+		unless @project.published
+			is_owner @project.user.id
+		end
 		@deadline = @project.deadline
 	end
 
@@ -58,7 +61,7 @@ class ProjectsController < ApplicationController
 
 	def is_owner id
 		unless current_user.id == id
-			flash[:notice] = "You can't edit this project"
+			flash[:notice] = "You have no access to this project"
 			redirect_to user_root_path
 			return false
 		end

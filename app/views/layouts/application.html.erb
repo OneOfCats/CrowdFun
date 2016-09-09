@@ -9,14 +9,15 @@
 <body>
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
+<%= link_to 'Главная', root_url %><br>
 <% if user_signed_in? %>
     <span>Здравствуйте, <%= current_user.email %></span>
     <%= link_to 'Выйти', destroy_user_session_path, :method => :delete %>
     <%= link_to 'Личный кабинет', user_root_url %>
+    <%= link_to 'Создать проект', new_project_path %>
 <% else %>
     <%= link_to 'Войти', new_user_session_path %> или <%= link_to 'Зарегистрироваться', new_user_registration_path %>
 <% end %>
-<%= link_to 'Главная', root_url %>
 <%= yield %>
 
 </body>

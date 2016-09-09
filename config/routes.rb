@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get 'account/edit' => 'accounts#edit', as: :edit_account
   patch 'account' => 'accounts#update', as: :account
 
-  root 'users#index'
+  root 'application#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
