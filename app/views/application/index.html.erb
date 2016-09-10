@@ -1,7 +1,7 @@
 <h2>Projects:</h2>
 
 <% @projects.each do |p| %>
-	<h3><%= link_to p.title, user_project_path(p.user_id, p) %></h3>
+	<h3><%= link_to p.title, p %></h3>
 	By <%= p.user.email %>
 <% end %>
 

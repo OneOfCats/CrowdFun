@@ -6,6 +6,7 @@ class Project < ActiveRecord::Base
 
 	belongs_to :user
 	has_many :comments, as: :commentable
+	has_many :updates
 
 	def deadline
 		if self.published

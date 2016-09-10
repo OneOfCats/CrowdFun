@@ -1,0 +1,7 @@
+<h1>Project's Update</h1>
+<h2><%= @update.title %></h2>
+<%= @update.created_at %>
+<p><%= @update.description %></p>
+
+<h3>Comments:</h3>
+<%= render partial: "comments/comments", locals: {comments: @comments} %>

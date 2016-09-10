@@ -22,6 +22,7 @@ class ProjectsController < ApplicationController
 		@signed = true
 		@deadline = @project.deadline
 		@comments = @project.comments
+		@updates = @project.updates
 	end
 
 	def edit
@@ -35,7 +36,7 @@ class ProjectsController < ApplicationController
 		else
 			flash[:notice] = @account.errors.full_messages.to_sentence
 		end
-		redirect_to user_project_path current_user.id, params[:id]
+		redirect_to project_path(params[:id])
 	end
 
 	def publish
@@ -45,7 +46,7 @@ class ProjectsController < ApplicationController
 		else
 			flash[:notice] = @account.errors.full_messages.to_sentence
 		end
-		redirect_to user_project_path params[:user_id], params[:id]
+		redirect_to project_path(params[:id])
 	end
 
 	private

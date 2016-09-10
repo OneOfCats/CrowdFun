@@ -1,6 +1,6 @@
 <h2>Edit project</h2>
 
-<%= form_for [@user, @project] do |f| %>
+<%= form_for @project do |f| %>
 	<% unless @project.published %>
 		<%= f.label :title %>
 		<%= f.text_field :title %>

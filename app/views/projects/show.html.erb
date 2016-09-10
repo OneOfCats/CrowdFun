@@ -1,7 +1,10 @@
 <br>
 <% if user_signed_in? && @project.user_id == current_user.id %>
-	<%= link_to 'Редактировать проект', edit_user_project_path %>
+	<%= link_to 'Редактировать проект', edit_project_path %>
 	<%= link_to 'Опубликовать проект', publish_user_project_path unless @project.published %>
+	<% if @project.published %>
+		<%= link_to 'Создать апдейт', new_project_update_path(@project) %>
+	<% end %>
 <% end %>
 
 <%= image_tag @project.main_picture %>
@@ -16,6 +19,15 @@
 </p>
 <% if @project.published %>
 	Published at: <%= @project.published_at.to_time %>
+<% end %>
+
+<h3>Updates</h3>
+<% @updates.each do |u| %>
+	<%= link_to u.title, [@project, u] %>
+	<%= u.created_at %>
+	<p>
+		<%= u.description %>
+	</p> 
 <% end %>
 
 <h3>Comments:</h3>
