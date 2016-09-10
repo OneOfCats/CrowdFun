@@ -11,7 +11,7 @@
 			</p>
 			<% if local_assigns[:show_direction] %>
 				<p>
-					address: <%= link_to 'address???? КАК ЭТО СДЕЛАТЬ? БОШКА НЕ ВАРИТ УЖЕ САНЁК ПОМОГИ' %>
+					address: <%= link_to 'показать на странице', Object.const_get(c.commentable_type).find(c.commentable_id) %>
 				</p>
 			<% end %>
 		</div>
