@@ -6,12 +6,13 @@
 					<%= User.find(c.user_id).email %>
 				</span>
 			<% end %>
+			<span><%= c.created_at %></span>
 			<p>
 				<%= c.content %>
 			</p>
 			<% if local_assigns[:show_direction] %>
 				<p>
-					address: <%= link_to 'показать на странице', polymorphic_path(Object.const_get(c.commentable_type).find(c.commentable_id)) %>
+					address: <%= link_to 'показать на странице', path_to_commentable(c.commentable) %>
 				</p>
 			<% end %>
 		</div>

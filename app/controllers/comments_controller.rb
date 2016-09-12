@@ -17,10 +17,10 @@ class CommentsController < ApplicationController
 	private
 	def define_relative
 		@relative_class = Object.const_get params[:commentable_type]
-		@relative = @relative_class.find(params["#{params[:commentable_type].downcase}_id"])
+		@relative = @relative_class.find(params[:commentable_id])
 	end
 
 	def comment_params
-		params["#{params[:commentable_type].downcase}"].require(:comments).permit!
+		params.require(:comment).permit(:content)
 	end
 end

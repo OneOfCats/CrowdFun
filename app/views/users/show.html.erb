@@ -15,12 +15,7 @@
 
 <% if current_user %>
 	<h3>Leave a comment:</h3>
-	<%= form_for @user, url: user_comments_path(@user, commentable_type: "User"), method: :post do |f| %>
-		<%= f.fields_for :comments do |ff| %>
-			<%= ff.text_field :content %>
-			<%= ff.submit "Comment" %>
-		<% end %>
-	<% end %>
+	<%= render partial: 'comments/form', locals: {commentable_type: controller_name.classify, commentable_id: @user.id} %>
 <% else %>
 	<h2>Login to leave a comment</h2>
 <% end %>

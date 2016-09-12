@@ -5,13 +5,16 @@ Rails.application.routes.draw do
   get 'persons/profile', as: 'user_root'
 
   resources :users do
-    resources :comments, only: [:new, :create, :edit, :update]
+    resources :comments, only: [:new, :edit, :update]
   end
 
   resources :projects do
-    resources :comments, only: [:new, :create, :edit, :update]
+    resources :comments, only: [:new, :edit, :update]
     resources :updates
   end
+
+  resources :comments, only: [:create]
+
   get 'users/:user_id/projects/:id/publish' => 'projects#publish', as: :publish_user_project
 
   get 'account/edit' => 'accounts#edit', as: :edit_account

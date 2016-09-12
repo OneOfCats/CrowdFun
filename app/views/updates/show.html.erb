@@ -5,3 +5,6 @@
 
 <h3>Comments:</h3>
 <%= render partial: "comments/comments", locals: {comments: @comments} %>
+
+<h3>Leave comment:</h3>
+<%= render partial: "comments/form", locals: {commentable_type: controller_name.classify, commentable_id: @update.id} %>
