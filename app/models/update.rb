@@ -3,4 +3,8 @@ class Update < ActiveRecord::Base
 
 	belongs_to :project
 	has_many :comments, as: :commentable
+
+	def parent_resource
+		project
+	end
 end
