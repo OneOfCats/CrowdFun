@@ -11,6 +11,7 @@
 <%= @project.main_video %>
 <h1><%= @project.title %></h1>
 <%= number_to_currency @project.funds %> out of <%= @project.goal %>
+<%= link_to 'See Pledgers', project_pledges_path(@project) %>
 <% if @deadline %>
 	Time left: <%= distance_of_time_in_words Time.current, @deadline %>
 <% end %>

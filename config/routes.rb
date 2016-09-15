@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :projects do
     resources :comments, only: [:new, :edit, :update]
     resources :updates
+    resources :pledges
   end
 
   resources :comments, only: [:create]

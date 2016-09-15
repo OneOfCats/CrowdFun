@@ -5,8 +5,10 @@ class Project < ActiveRecord::Base
 	validates :goal, format: { :with => /\A\d+(?:\.\d{0,2})?\z/ }
 
 	belongs_to :user
-	has_many :comments, as: :commentable
-	has_many :updates
+	has_many :comments, as: :commentable, dependent: :delete_all
+	has_many :updates, dependent: :delete_all
+	has_many :pledges
+	has_many :pledgers, through: :pledges, class_name: 'User'
 
 	def deadline
 		if self.published

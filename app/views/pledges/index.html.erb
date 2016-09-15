@@ -1,0 +1,11 @@
+<h2><%= link_to @project.title, @project %></h2>
+<h2>Pledges</h2>
+<div id="pledges">
+	<% @pledges.each do |p| %>
+		<%= link_to p.user.email, p.user %>
+		<%= p.amount %>
+		<p>
+			<%= p.message %>
+		</p>
+	<% end %>
+</div>
