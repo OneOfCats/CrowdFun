@@ -3,7 +3,7 @@
 <div id="pledges">
 	<% @pledges.each do |p| %>
 		<%= link_to p.user.email, p.user %>
-		<%= p.amount %>
+		<%= number_to_currency p.amount %>
 		<p>
 			<%= p.message %>
 		</p>

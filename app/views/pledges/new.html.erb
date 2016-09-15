@@ -1,0 +1,15 @@
+<h1><%= link_to @project.title, project_path(@project) %></h1>
+<%= number_to_currency @project.funds %> out of <%= @project.goal %>
+<h2>Pledge</h2>
+You have <%= number_to_currency current_user.account.balance %>
+<div id="pledge">
+	<%= form_for [@project, @pledge] do |f| %>
+		<%= f.label :amount %>
+		<%= f.text_field :amount %>
+		<%= f.label :message %>
+		<%= f.text_area :message %>
+		<%= f.label :visible %>
+		<%= f.check_box :visible, checked: true %>
+		<%= f.submit %>
+	<% end %>
+</div>

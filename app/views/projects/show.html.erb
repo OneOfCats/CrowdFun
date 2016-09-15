@@ -10,7 +10,9 @@
 <%= image_tag @project.main_picture %>
 <%= @project.main_video %>
 <h1><%= @project.title %></h1>
+<span>by <%= link_to @project.user.email, user_path(@project.user) %></span>
 <%= number_to_currency @project.funds %> out of <%= @project.goal %>
+<%= link_to 'Pledge!', new_project_pledge_path(@project) %>
 <%= link_to 'See Pledgers', project_pledges_path(@project) %>
 <% if @deadline %>
 	Time left: <%= distance_of_time_in_words Time.current, @deadline %>

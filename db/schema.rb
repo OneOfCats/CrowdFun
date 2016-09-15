@@ -17,10 +17,10 @@ ActiveRecord::Schema.define(version: 20160915114452) do
     t.string   "card_number"
     t.string   "card_holder_first_name"
     t.string   "card_holder_second_name"
-    t.integer  "balance"
+    t.decimal  "balance",                 precision: 8, scale: 2
     t.integer  "user_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
   end
 
   create_table "comments", force: :cascade do |t|
@@ -37,10 +37,11 @@ ActiveRecord::Schema.define(version: 20160915114452) do
   create_table "pledges", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "project_id"
-    t.decimal  "amount"
+    t.decimal  "amount",     precision: 8, scale: 2
     t.text     "message"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "visible"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "projects", force: :cascade do |t|
@@ -50,12 +51,12 @@ ActiveRecord::Schema.define(version: 20160915114452) do
     t.string   "main_picture"
     t.string   "main_video"
     t.integer  "realization_duration"
-    t.decimal  "goal"
-    t.decimal  "funds",                default: 0.0
-    t.boolean  "published",            default: false
+    t.decimal  "goal",                 precision: 8, scale: 2
+    t.decimal  "funds",                                        default: 0.0
+    t.boolean  "published",                                    default: false
     t.datetime "published_at"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
   end
 
   create_table "updates", force: :cascade do |t|

@@ -1,0 +1,6 @@
+<h2>Пополнение счёта</h2>
+<%= form_for @account do |f| %>
+	<%= f.label :balance %>
+	<%= f.text_field :balance %>
+	<%= f.submit %>
+<% end %>

@@ -7,7 +7,7 @@ class CreateProjects < ActiveRecord::Migration
       t.string :main_picture
       t.string :main_video
       t.integer :realization_duration
-      t.decimal :goal
+      t.decimal :goal, scale: 2, precision: 8
       t.decimal :funds, default: 0
       t.boolean :published, default: false
       t.datetime :published_at
