@@ -6,7 +6,7 @@
 					<%= User.find(c.user_id).email %>
 				</span>
 			<% end %>
-			<span><%= c.created_at %></span>
+			<span><%= local_time(c.created_at) %></span>
 			<p>
 				<%= c.content %>
 			</p>

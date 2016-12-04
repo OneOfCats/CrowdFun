@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
 
 	def show
 		unless @project.published
-			is_owner @project.user.id
+			only_owner @project.user.id
 		end
 		@signed = true
 		@deadline = @project.deadline
@@ -26,11 +26,11 @@ class ProjectsController < ApplicationController
 	end
 
 	def edit
-		@user = current_user if is_owner @project.user_id 
+		@user = current_user if only_owner @project.user_id 
 	end
 
 	def update
-		return unless is_owner @project.user_id
+		return unless only_owner @project.user_id
 		if @project.update_attributes project_edit_params
 			flash[:notice] = "Project successfully edited"
 		else
@@ -40,7 +40,7 @@ class ProjectsController < ApplicationController
 	end
 
 	def publish
-		return unless is_owner @project.user_id
+		return unless only_owner @project.user_id
 		if @project.update_attribute :published, true
 			flash[:notice] = "Project successfully published"
 		else
@@ -62,7 +62,7 @@ class ProjectsController < ApplicationController
 		end
 	end
 
-	def is_owner id
+	def only_owner id
 		unless current_user.id == id
 			flash[:notice] = "You have no access to this project"
 			redirect_to user_root_path
