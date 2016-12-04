@@ -11,15 +11,17 @@ class PledgesController < ApplicationController
 	
 	def create
 		redirect_to @project
-		if owner?
-			return flash[:notice] = 'You can not pledge to your own project'
-		end
 		unless balance_enough?
 			return flash[:notice] = 'You have not enough money on your balance'
 		end
 		@pledge = @project.pledges.new pledge_params
 		@pledge.user_id = current_user.id
-		unless @pledge.save
+		if @pledge.save #if pledge is saved successfuly - transfer the money
+			new_funds = @project.funds + params[:pledge][:amount].to_f
+			@project.update_attribute :funds, new_funds
+			new_balance = current_user.account.balance - params[:pledge][:amount].to_f
+			current_user.account.update_attribute :balance, new_balance
+		else
 			flash[:notice] = @pledge.errors.full_messages.to_sentence
 		end
 	end
