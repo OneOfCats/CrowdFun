@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   patch 'account' => 'accounts#update', as: :account
 
   get 'account/edit_balance' => 'accounts#new_balance', as: :new_balance
-  patch 'account/edit_balance' => 'accounts#update_balance', as: :update_balance
+  post 'account/edit_balance' => 'accounts#update_balance', as: :update_balance
 
   root 'application#index'
 

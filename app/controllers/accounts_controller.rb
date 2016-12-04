@@ -18,8 +18,10 @@ class AccountsController < ApplicationController
 	end
 
 	def update_balance
-		@amount = params[:account][:balance].to_f
-		current_user.account.balance += @amount
+		@amount = params[:balance].to_f
+		new_amount = current_user.account.balance + @amount
+		current_user.account.update_column :balance, new_amount
+		redirect_to user_root_path
 	end
 
 	private
