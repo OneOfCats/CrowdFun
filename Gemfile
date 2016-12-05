@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'delayed_job_active_record'
+
 gem 'local_time'
 
 gem 'credit_card_validations'
