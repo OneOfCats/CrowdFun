@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20161205132106) do
     t.datetime "published_at"
     t.datetime "created_at",                                                   null: false
     t.datetime "updated_at",                                                   null: false
-    t.boolean  "funded"
+    t.boolean  "funded",                                       default: false, null: false
   end
 
   create_table "updates", force: :cascade do |t|
