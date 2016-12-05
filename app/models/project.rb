@@ -23,7 +23,7 @@ class Project < ActiveRecord::Base
 	def publishing
 		return if !self.published
 		self.touch(:published_at)
-		handle_asynchronously :close_project, :run_at => Proc.new { realization_duration.days.from_now }
+		delay.close_project(run_at: realization_duration.days.from_now)
 	end
 
 	def close_project
