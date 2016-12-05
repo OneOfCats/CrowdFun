@@ -1,5 +1,6 @@
 class Project < ActiveRecord::Base
 	after_save :set_published_time
+	after_save :check_goal, if: :funds_changed?
 
 	validates :title, :description, :realization_duration, :goal, presence: true
 	validates :goal, format: { :with => /\A\d+(?:\.\d{0,2})?\z/ }
@@ -26,6 +27,8 @@ class Project < ActiveRecord::Base
 	end
 
 	def check_goal
-		
+		if funds >= goal && !funded
+			update_attribute :funded, true
+		end
 	end
 end
