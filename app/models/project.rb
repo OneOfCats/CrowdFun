@@ -24,4 +24,8 @@ class Project < ActiveRecord::Base
 			self.touch(:published_at)
 		end
 	end
+
+	def check_goal
+		
+	end
 end
