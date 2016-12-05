@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-	after_save :set_published_time
+	after_save :publishing, if: :published_changed?
 	after_save :check_goal, if: :funds_changed?
 
 	validates :title, :description, :realization_duration, :goal, presence: true
@@ -20,10 +20,14 @@ class Project < ActiveRecord::Base
 	end
 
 	private
-	def set_published_time
-		if self.published
-			self.touch(:published_at)
-		end
+	def publishing
+		return if !self.published
+		self.touch(:published_at)
+		handle_asynchronously :close_project, :run_at => Proc.new { realization_duration.from_now }
+	end
+
+	def close_project
+		update_attribute :opened, false
 	end
 
 	def check_goal
@@ -31,4 +35,5 @@ class Project < ActiveRecord::Base
 			update_attribute :funded, true
 		end
 	end
+
 end
