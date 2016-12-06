@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+
 	after_save :publishing, if: :published_changed?
 	after_save :check_goal, if: :funds_changed?
 
@@ -29,6 +30,10 @@ class Project < ActiveRecord::Base
 		end
 	end
 
+	def is_owner? id
+		user.id == id
+	end
+
 	private
 	def publishing
 		return if !self.published
@@ -43,8 +48,6 @@ class Project < ActiveRecord::Base
 	end
 
 	def refund_pledges
-		puts 'ASDASDASD'
-		puts pledges.inspect
 		pledges.each do |pledge|
 			puts pledge.user.inspect
 			puts pledge.amount

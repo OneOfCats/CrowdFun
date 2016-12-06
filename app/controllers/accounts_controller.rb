@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
-	before_action :get_account, only: [:edit, :update]
+	before_action :get_account, only: [:edit, :update, :update_balance]
+	after_action :redirect_to_user
 
 	def edit
 	end
@@ -10,7 +11,6 @@ class AccountsController < ApplicationController
 		else
 			flash[:notice] = @account.errors.full_messages.to_sentence
 		end
-		redirect_to edit_account_path
 	end
 
 	def new_balance
@@ -18,10 +18,7 @@ class AccountsController < ApplicationController
 	end
 
 	def update_balance
-		@amount = params[:balance].to_f
-		new_amount = current_user.account.balance + @amount
-		current_user.account.update_column :balance, new_amount
-		redirect_to user_root_path
+		@account.update_balance params[:balance].to_f
 	end
 
 	private
@@ -31,5 +28,9 @@ class AccountsController < ApplicationController
 
 	def get_account
 		@account = current_user.account
+	end
+
+	def redirect_to_user
+		redirect_to user_root_path
 	end
 end

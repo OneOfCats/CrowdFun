@@ -4,4 +4,8 @@ class Account < ActiveRecord::Base
 	validates :card_holder_second_name, format: { with: /\A[a-zA-Z0-9]+\Z/ }, on: :update
 
 	belongs_to :user
+
+	def update_balance income
+		update_attribute :balance, balance + income
+	end
 end
