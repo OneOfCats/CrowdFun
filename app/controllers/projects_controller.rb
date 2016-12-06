@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
 		unless @project.save
 			flash[:notice] = @project.errors.full_messages.to_sentence
 		end
-		redirect_to user_root_path
+		redirect_to project_path(@project)
 	end
 
 	def show
@@ -36,7 +36,7 @@ class ProjectsController < ApplicationController
 		else
 			flash[:notice] = @account.errors.full_messages.to_sentence
 		end
-		redirect_to project_path(params[:id])
+		redirect_to project_path(@project)
 	end
 
 	def publish
@@ -46,7 +46,13 @@ class ProjectsController < ApplicationController
 		else
 			flash[:notice] = @account.errors.full_messages.to_sentence
 		end
-		redirect_to project_path(params[:id])
+		redirect_to project_path(@project)
+	end
+
+	def finish
+		return unless only_owner @project.user_id
+		@project.close_project
+		redirect_to project_path(@project)
 	end
 
 	private

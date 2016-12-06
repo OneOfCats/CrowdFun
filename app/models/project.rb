@@ -19,6 +19,16 @@ class Project < ActiveRecord::Base
 		end
 	end
 
+	def close_project
+		return false if !opened
+		update_attribute :opened, false
+		if funds >= goal
+			user.account.update_attribute :balance, user.account.balance + funds
+		else
+			refund_pledges
+		end
+	end
+
 	private
 	def publishing
 		return if !self.published
@@ -26,13 +36,19 @@ class Project < ActiveRecord::Base
 		delay.close_project(run_at: realization_duration.days.from_now)
 	end
 
-	def close_project
-		update_attribute :opened, false
-	end
-
 	def check_goal
 		if funds >= goal && !funded
 			update_attribute :funded, true
+		end
+	end
+
+	def refund_pledges
+		puts 'ASDASDASD'
+		puts pledges.inspect
+		pledges.each do |pledge|
+			puts pledge.user.inspect
+			puts pledge.amount
+			pledge.user.account.update_attribute :balance, pledge.user.account.balance + pledge.amount
 		end
 	end
 

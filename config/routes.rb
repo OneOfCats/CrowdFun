@@ -14,9 +14,11 @@ Rails.application.routes.draw do
     resources :pledges
   end
 
+  get 'projects/:id/finish' => 'projects#finish', as: :finish_project
+
   resources :comments, only: [:create]
 
-  get 'users/:user_id/projects/:id/publish' => 'projects#publish', as: :publish_user_project
+  get '/projects/:id/publish' => 'projects#publish', as: :publish_project
 
   get 'account/edit' => 'accounts#edit', as: :edit_account
   patch 'account' => 'accounts#update', as: :account
