@@ -1,6 +1,5 @@
 class AccountsController < ApplicationController
 	before_action :get_account, only: [:edit, :update, :update_balance]
-	after_action :redirect_to_user
 
 	def edit
 	end
@@ -19,6 +18,7 @@ class AccountsController < ApplicationController
 
 	def update_balance
 		@account.update_balance params[:balance].to_f
+		redirect_to user_root_path
 	end
 
 	private
@@ -28,9 +28,5 @@ class AccountsController < ApplicationController
 
 	def get_account
 		@account = current_user.account
-	end
-
-	def redirect_to_user
-		redirect_to user_root_path
 	end
 end
