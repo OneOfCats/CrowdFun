@@ -2,8 +2,8 @@ class UpdatesController < ApplicationController
 	before_action :get_project
 
 	def show
-		@project = Project.find(params[:project_id])
 		@update = Update.find(params[:id])
+		@project = @update.project
 		@comments = @update.comments
 	end
 

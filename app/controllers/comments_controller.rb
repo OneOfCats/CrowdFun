@@ -2,9 +2,8 @@ class CommentsController < ApplicationController
 	before_action :define_relative, only: :create
 
 	def create
-		@comment = @relative.comments.new comment_params
 		if current_user
-			@comment.user_id = current_user.id
+			@comment = @relative.comments.new comment_params.merge(user_id: current_user.id)
 			unless @comment.save
 				flash[:notice] = @comment.errors.full_messages.to_sentence
 			end
