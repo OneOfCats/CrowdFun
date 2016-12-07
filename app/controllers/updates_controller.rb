@@ -1,5 +1,6 @@
-class UpdatesController < ApplicationController
-	before_action :get_project
+class UpdatesController < CocksController
+	before_action :find_project
+	before_action :only_owner, only: [:new]
 
 	def show
 		@update = Update.find(params[:id])
@@ -8,10 +9,6 @@ class UpdatesController < ApplicationController
 	end
 
 	def new
-		unless project_owner?
-			flash[:notice] = 'You have no access to this project'
-			redirect_to @project
-		end
 		@update = Update.new
 	end
 
@@ -28,13 +25,5 @@ class UpdatesController < ApplicationController
 	private
 	def update_params
 		params.require(:update).permit(:title, :description)
-	end
-
-	def project_owner?
-		@project.user_id == current_user.id
-	end
-
-	def get_project
-		@project = Project.find(params[:project_id])
 	end
 end

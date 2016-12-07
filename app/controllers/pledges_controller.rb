@@ -9,23 +9,19 @@ class PledgesController < ApplicationController
 	end
 	
 	def create
-		redirect_to @project
 		@pledge = @project.pledges.new pledge_params.merge(user_id: current_user.id)
 		unless @pledge.save
 			flash[:notice] = @pledge.errors.full_messages.to_sentence
 		end
+		redirect_to @project
 	end
 
 	private
 	def get_project
 		@project = Project.find(params[:project_id])
-		unless @project
+		unless @project || @project.published
 			flash[:notice] = 'Project doesnt exist'
 			return redirect_to(root_path)
-		end
-		unless @project.published
-			flash[:notice] = 'Project is not published'
-			redirect_to project_path(@project)
 		end
 	end
 

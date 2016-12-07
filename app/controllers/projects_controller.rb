@@ -1,7 +1,8 @@
-class ProjectsController < ApplicationController
+class ProjectsController < CocksController
 	before_action :authenticate_user!, except: :show
 	before_action :find_project, except: [:new, :create]
-	before_action :only_owner, only: [:edit]
+	before_action :only_owner, only: [:edit, :update, :publish, :finish]
+	before_action :only_owner, only: [:show], if: ->(){ !@project.published }
 
 	def new
 		@project = Project.new
@@ -14,7 +15,7 @@ class ProjectsController < ApplicationController
 	end
 
 	def show
-		only_owner unless @project.published
+		
 	end
 
 	def edit
@@ -22,16 +23,14 @@ class ProjectsController < ApplicationController
 	end
 
 	def update
-		return unless only_owner
 		flash[:notice] = "Project successfully edited"
-		unless @project.update_attributes project_edit_params
+		unless @project.update project_edit_params
 			flash[:notice] = @account.errors.full_messages.to_sentence
 		end
 		redirect_to project_path(@project)
 	end
 
 	def publish
-		return unless only_owner
 		flash[:notice] = "Project successfully published"
 		unless @project.update_attribute :published, true
 			flash[:notice] = @account.errors.full_messages.to_sentence
@@ -40,7 +39,6 @@ class ProjectsController < ApplicationController
 	end
 
 	def finish
-		return unless only_owner
 		@project.close_project
 		redirect_to project_path(@project)
 	end
@@ -52,22 +50,9 @@ class ProjectsController < ApplicationController
 
 	def project_edit_params
 		if @project.published
-			params.require(:project).permit(:main_picture, :main_video);
+			params.require(:project).permit(:main_picture, :main_video)
 		else
-			params.require(:project).permit(:title, :description, :main_picture, :main_video, :realization_duration, :goal);
+			params.require(:project).permit(:title, :description, :main_picture, :main_video, :realization_duration, :goal)
 		end
-	end
-
-	def only_owner
-		unless @project.is_owner? current_user.id
-			flash[:notice] = "You have no access to this project"
-			redirect_to user_root_path
-			return false
-		end
-		true
-	end
-
-	def find_project
-		@project = Project.find(params[:id])
 	end
 end
