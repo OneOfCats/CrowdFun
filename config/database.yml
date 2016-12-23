@@ -7,13 +7,15 @@
 default: &default
   adapter: postgresql
   encoding: utf8
+  username: cat
+  password: cat
   pool: 5
   timeout: 5000
 
 development:
   <<: *default
-  username: root
-  password: root
+  username: cat
+  password: cat
   database: crowdfun_development
 
 # Warning: The database defined as "test" will be erased and
@@ -21,8 +23,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  username: root
-  password: root
+  username: cat
+  password: cat
   database: crowdfun_test
 
 production:

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161207162542) do
+ActiveRecord::Schema.define(version: 20161223120422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,9 @@ ActiveRecord::Schema.define(version: 20161207162542) do
     t.datetime "updated_at",                                      null: false
   end
 
+  add_index "accounts", ["card_number"], name: "index_accounts_on_card_number", using: :btree
+  add_index "accounts", ["user_id"], name: "index_accounts_on_user_id", using: :btree
+
   create_table "comments", force: :cascade do |t|
     t.text     "content"
     t.integer  "commentable_id"
@@ -36,6 +39,7 @@ ActiveRecord::Schema.define(version: 20161207162542) do
   end
 
   add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -63,6 +67,9 @@ ActiveRecord::Schema.define(version: 20161207162542) do
     t.datetime "updated_at",                         null: false
   end
 
+  add_index "pledges", ["project_id"], name: "index_pledges_on_project_id", using: :btree
+  add_index "pledges", ["user_id"], name: "index_pledges_on_user_id", using: :btree
+
   create_table "projects", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "title"
@@ -80,6 +87,9 @@ ActiveRecord::Schema.define(version: 20161207162542) do
     t.boolean  "opened",                                       default: true,  null: false
   end
 
+  add_index "projects", ["title"], name: "index_projects_on_title", using: :btree
+  add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
+
   create_table "updates", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -89,6 +99,8 @@ ActiveRecord::Schema.define(version: 20161207162542) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
+
+  add_index "updates", ["project_id"], name: "index_updates_on_project_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
