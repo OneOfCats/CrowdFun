@@ -1,4 +1,4 @@
-class CocksController < ApplicationController
+class OwnableController < ApplicationController
 	def only_owner
 		unless @project.is_owner? current_user.id
 			flash[:notice] = "You have no access to this project"

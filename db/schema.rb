@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20161207162542) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "accounts", force: :cascade do |t|
     t.string   "card_number"
     t.string   "card_holder_first_name"
@@ -32,7 +35,7 @@ ActiveRecord::Schema.define(version: 20161207162542) do
     t.datetime "updated_at",       null: false
   end
 
-  add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+  add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -48,7 +51,7 @@ ActiveRecord::Schema.define(version: 20161207162542) do
     t.datetime "updated_at"
   end
 
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "pledges", force: :cascade do |t|
     t.integer  "user_id"
@@ -103,7 +106,7 @@ ActiveRecord::Schema.define(version: 20161207162542) do
     t.boolean  "admin",                  default: false, null: false
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

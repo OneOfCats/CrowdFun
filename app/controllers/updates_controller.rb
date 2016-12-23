@@ -1,4 +1,4 @@
-class UpdatesController < CocksController
+class UpdatesController < OwnableController
 	before_action :find_project
 	before_action :only_owner, only: [:new]
 

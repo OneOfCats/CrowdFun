@@ -1,4 +1,4 @@
-class ProjectsController < CocksController
+class ProjectsController < OwnableController
 	before_action :authenticate_user!, except: :show
 	before_action :find_project, except: [:new, :create]
 	before_action :only_owner, only: [:edit, :update, :publish, :finish]
