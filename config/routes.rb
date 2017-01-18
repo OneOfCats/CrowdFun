@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   resources :comments, only: [:create]
 
   get '/projects/:id/publish' => 'projects#publish', as: :publish_project
+  post '/projects/:id/like' => 'projects#like', as: :like_project
+  post '/projects/:id/dislike' => 'projects#dislike', as: :dislike_project
 
   get 'account/edit' => 'accounts#edit', as: :edit_account
   patch 'account' => 'accounts#update', as: :account

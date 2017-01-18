@@ -11,6 +11,8 @@ class Project < ActiveRecord::Base
 	has_many :updates, dependent: :delete_all
 	has_many :pledges
 	has_many :pledgers, through: :pledges, class_name: 'User'
+	#has_many :voters, through: :votes, class_name: 'User'
+	has_many :votes
 
 	def deadline
 		if self.published
@@ -34,7 +36,25 @@ class Project < ActiveRecord::Base
 		user.id == id
 	end
 
+	def users_rating
+		get_rating :users
+	end
+
+	def admins_rating
+		get_rating :admins
+	end
+
+	def get_rating group
+		negative = votes.disliked.where(group: Vote.groups[group])
+		all = votes.where(group: Vote.groups[group])
+		unless all.count == 0
+			return 100 - (negative.count / all.count) * 100
+		end
+		return 0
+	end
+
 	private
+
 	def publishing
 		return if !self.published
 		self.touch(:published_at)

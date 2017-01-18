@@ -3,6 +3,7 @@ class ProjectsController < OwnableController
 	before_action :find_project, except: [:new, :create]
 	before_action :only_owner, only: [:edit, :update, :publish, :finish]
 	before_action :only_owner, only: [:show], if: ->(){ !@project.published }
+	respond_to :js, only: [:like, :dislike]
 
 	def new
 		@project = Project.new
@@ -15,7 +16,9 @@ class ProjectsController < OwnableController
 	end
 
 	def show
-		
+		@voted = @project.votes.where(user: current_user).first
+		@users_rating = @project.users_rating
+		@admins_rating = @project.admins_rating
 	end
 
 	def edit
@@ -41,6 +44,23 @@ class ProjectsController < OwnableController
 	def finish
 		@project.close_project
 		redirect_to project_path(@project)
+	end
+
+	def like
+		vote :liked
+	end
+
+	def dislike
+		vote :disliked
+	end
+
+	def vote status
+		return if @project.votes.where(user: current_user).first
+		@vote = @project.votes.new(user: current_user, status: status)
+		@vote.group = "admins" if current_user.admin?
+		unless @vote.save
+			flash[:notice] = @vote.errors.full_messages.to_sentence
+		end
 	end
 
 	private

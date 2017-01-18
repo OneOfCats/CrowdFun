@@ -1,3 +1,5 @@
+#For example a Project or an Update, an entity that has an owner and a project (or is a project)
+
 class OwnableController < ApplicationController
 	def only_owner
 		unless @project.is_owner? current_user.id
