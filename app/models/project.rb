@@ -11,7 +11,6 @@ class Project < ActiveRecord::Base
 	has_many :updates, dependent: :delete_all
 	has_many :pledges
 	has_many :pledgers, through: :pledges, class_name: 'User'
-	#has_many :voters, through: :votes, class_name: 'User'
 	has_many :votes
 
 	def deadline

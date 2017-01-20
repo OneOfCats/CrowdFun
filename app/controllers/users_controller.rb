@@ -9,6 +9,8 @@ class UsersController < ApplicationController
 		@own_comments = @user.commented_on
 		@comments = @user.comments
 		@projects = @user.projects.where(published: true)
+		@demand_rating = @user.demand_rating
+		@projects_rating = @user.projects_rating
 	end
 
 	def update
