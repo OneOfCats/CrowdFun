@@ -23,13 +23,20 @@ class User < ActiveRecord::Base
   end
 
   def demand_rating
+    return 0 if projects.size == 0 
     all = projects.where(published: true, opened: false)
     negative = all.where(funded: false)
     count_rating all, negative
   end
 
+  def resulting_rating
+    return 0 if projects.size == 0 
+    all = projects.where(funded: true)
+    negative = all.where(result: nil)
+    count_rating all, negative
+  end
+
   def projects_rating
-    puts "PROJECTS RAING"
     return 0 if projects.size == 0 
     all = Vote.where("project_id in (?)", projects.map { |project| project.id})
     negative = all.disliked
@@ -40,7 +47,7 @@ class User < ActiveRecord::Base
 
   def count_rating(all, negative)
     unless all.count == 0
-      return 100 - (negative.count / all.count) * 100
+      return 100 - (negative.count.to_f / all.count.to_f) * 100
     end
     return 0
   end

@@ -3,7 +3,6 @@ class ProjectsController < OwnableController
 	before_action :find_project, except: [:new, :create]
 	before_action :only_owner, only: [:edit, :update, :publish, :finish]
 	before_action :only_owner, only: [:show], if: ->(){ !@project.published }
-	respond_to :js, only: [:like, :dislike]
 
 	def new
 		@project = Project.new
@@ -48,10 +47,16 @@ class ProjectsController < OwnableController
 
 	def like
 		vote :liked
+		respond_to do |format|
+			format.js { render 'rate.js.erb' }
+		end
 	end
 
 	def dislike
 		vote :disliked
+		respond_to do |format|
+			format.js { render 'rate.js.erb' }
+		end
 	end
 
 	def vote status
@@ -69,9 +74,9 @@ class ProjectsController < OwnableController
 	end
 
 	def project_edit_params
-		if @project.published
-			params.require(:project).permit(:main_picture, :main_video)
-		else
+		if @project.funded && !@project.result
+			params.require(:project).permit(:result)
+		elsif !@project.published
 			params.require(:project).permit(:title, :description, :main_picture, :main_video, :realization_duration, :goal)
 		end
 	end

@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 		@projects = @user.projects.where(published: true)
 		@demand_rating = @user.demand_rating
 		@projects_rating = @user.projects_rating
+		@resulting_rating = @user.resulting_rating
 	end
 
 	def update

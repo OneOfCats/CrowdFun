@@ -47,7 +47,7 @@ class Project < ActiveRecord::Base
 		negative = votes.disliked.where(group: Vote.groups[group])
 		all = votes.where(group: Vote.groups[group])
 		unless all.count == 0
-			return 100 - (negative.count / all.count) * 100
+			return 100 - (negative.count.to_f / all.count.to_f) * 100
 		end
 		return 0
 	end
