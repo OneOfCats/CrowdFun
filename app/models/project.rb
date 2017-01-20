@@ -10,7 +10,7 @@ class Project < ActiveRecord::Base
 	has_many :comments, as: :commentable, dependent: :delete_all
 	has_many :updates, dependent: :delete_all
 	has_many :pledges
-	has_many :pledgers, through: :pledges, class_name: 'User'
+	has_many :pledgers, through: :pledges, source: :user
 	has_many :votes
 
 	def deadline
@@ -41,6 +41,10 @@ class Project < ActiveRecord::Base
 
 	def admins_rating
 		get_rating :admins
+	end
+
+	def pledgers_rating
+		get_rating :pledgers
 	end
 
 	def get_rating group

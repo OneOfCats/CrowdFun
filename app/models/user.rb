@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :projects
   has_one :account
   has_many :pledges
-  has_many :pledged_projects, through: :pledges, class_name: 'Project'
+  has_many :pledged_projects, through: :pledges, source: :project
   has_many :votes
 
   accepts_nested_attributes_for :account
@@ -23,22 +23,28 @@ class User < ActiveRecord::Base
   end
 
   def demand_rating
-    return 0 if projects.size == 0 
-    all = projects.where(published: true, opened: false)
+    all = projects.where('(published=? AND opened=?) OR funded=?', true, false, true)
     negative = all.where(funded: false)
+    puts "ASDASD"
+    puts all.inspect
+    puts negative.inspect
     count_rating all, negative
   end
 
   def resulting_rating
-    return 0 if projects.size == 0 
     all = projects.where(funded: true)
     negative = all.where(result: nil)
     count_rating all, negative
   end
 
-  def projects_rating
-    return 0 if projects.size == 0 
-    all = Vote.where("project_id in (?)", projects.map { |project| project.id})
+  def users_rating
+    all = Vote.where("project_id in (?)", projects.map { |project| project.id}).users
+    negative = all.disliked
+    count_rating all, negative
+  end
+
+  def pledgers_rating
+    all = Vote.where("project_id in (?)", projects.map { |project| project.id}).pledgers
     negative = all.disliked
     count_rating all, negative
   end

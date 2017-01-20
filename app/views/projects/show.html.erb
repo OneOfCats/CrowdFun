@@ -31,11 +31,14 @@
 <%= link_to 'See Pledgers', project_pledges_path(@project) %>
 <div id="likes">
 	<div id="rating">
-		Users rating: <%= @users_rating.round %>%<br>
-		Admins rating: <%= @admins_rating.round %>%
+		Рейтинг пользователей: <%= @users_rating.round %>%<br>
+		Рейтинг админов: <%= @admins_rating.round %>%<br>
+		<% if @project.funded %>
+			Рейтинг спонсоров: <%= @pledgers_rating.round %>%
+		<% end %>
 	</div>
 	<div class="buttons">
-		<% unless @voted || !@project.opened %>
+		<% unless @voted %>
 			<%= link_to 'Like', like_project_url(@project), remote: true, method: :post %>
 			<%= link_to 'Dislike', dislike_project_url(@project), remote: true, method: :post %>
 		<% end %>

@@ -3,5 +3,5 @@ class Vote < ActiveRecord::Base
 	belongs_to :project
 
 	enum status: [:liked, :disliked]
-	enum group: [:users, :admins]
+	enum group: [:users, :admins, :pledgers]
 end

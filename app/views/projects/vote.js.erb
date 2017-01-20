@@ -1,0 +1,2 @@
+$("#likes .buttons").remove();
+$("#rating").html("Рейтинг пользователей: <%= @project.users_rating.round %>%<br>Рейтинг админов: <%= @project.admins_rating.round %>%<br><% if @project.funded %>Рейтинг спонсоров: <%= @project.pledgers_rating.round %>%<% end %>");

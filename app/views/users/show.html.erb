@@ -8,9 +8,10 @@
 <% end %>
 
 <h4>Ratings:</h4>
-<span>Пользовательский рейтинг проектов: </span> <%= @projects_rating.round %>%<br>
+<span>Пользовательский рейтинг проектов: </span> <%= @users_rating.round %>%<br>
 <span>Рейтинг востребованности проектов: </span> <%= @demand_rating.round %>%<br>
 <span>Рейтинг результативности проектов: </span> <%= @resulting_rating.round %>%<br>
+<span>Рейтинг удовлетворённости спонсоров: </span> <%= @pledgers_rating.round %>%<br>
 
 <h3>Comments:</h3>
 <%= render partial: 'comments/comments', locals: {comments: @comments} %>

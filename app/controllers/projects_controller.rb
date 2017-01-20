@@ -15,9 +15,16 @@ class ProjectsController < OwnableController
 	end
 
 	def show
-		@voted = @project.votes.where(user: current_user).first
+		if @project.user == current_user
+			@voted = true
+		elsif @project.funded
+			@voted = @project.votes.where(user: current_user).pledgers.first
+		else
+			@voted = @project.votes.where(user: current_user).users.first
+		end
 		@users_rating = @project.users_rating
 		@admins_rating = @project.admins_rating
+		@pledgers_rating = @project.pledgers_rating
 	end
 
 	def edit
@@ -46,23 +53,30 @@ class ProjectsController < OwnableController
 	end
 
 	def like
-		vote :liked
+		if @project.opened && !@project.funded
+			vote :liked, :users
+		elsif @project.result && @project.pledgers.find(current_user)
+			vote :liked, :pledgers
+		end
 		respond_to do |format|
-			format.js { render 'rate.js.erb' }
+			format.js { render 'vote.js.erb' }
 		end
 	end
 
 	def dislike
-		vote :disliked
+		if @project.opened && !@project.funded
+			vote :disliked, :users
+		elsif @project.result && @project.pledgers.find(current_user)
+			vote :disliked, :pledgers
+		end
 		respond_to do |format|
-			format.js { render 'rate.js.erb' }
+			format.js { render 'vote.js.erb' }
 		end
 	end
 
-	def vote status
-		return if @project.votes.where(user: current_user).first
-		@vote = @project.votes.new(user: current_user, status: status)
-		@vote.group = "admins" if current_user.admin?
+	def vote status, group
+		return if @project.votes.where(user: current_user, group: group).first
+		@vote = @project.votes.new(user: current_user, status: status, group: group || "admins")
 		unless @vote.save
 			flash[:notice] = @vote.errors.full_messages.to_sentence
 		end
