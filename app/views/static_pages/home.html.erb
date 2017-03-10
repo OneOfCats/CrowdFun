@@ -1,0 +1,16 @@
+<div class="main-back" style="background-image:url(<%= @project_main.main_picture %>)">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="text white">
+          <div>
+            <div>
+              <%= @project_main.title %>
+            </div>
+          </div>
+        </div>
+        <%= link_to 'See more', project_path(@project_main), class: 'btn' %>
+      </div>
+    </div>
+  </div>
+</div>
