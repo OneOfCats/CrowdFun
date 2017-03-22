@@ -25,7 +25,6 @@ class User < ActiveRecord::Base
   def demand_rating
     all = projects.where('(published=? AND opened=?) OR funded=?', true, false, true)
     negative = all.where(funded: false)
-    puts "ASDASD"
     puts all.inspect
     puts negative.inspect
     count_rating all, negative
