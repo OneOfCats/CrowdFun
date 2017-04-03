@@ -7,8 +7,8 @@ class StaticPagesController < ApplicationController
   end
 
   def search
-    @projects = Project.where(published: true).search(params[:search]).paginate per_page: 9, page: params[:page]
-    
+    @projects = Project.where(published: true).search(params[:search], params[:categories]).paginate per_page: 9, page: params[:page]
+
     respond_to do |format|
       format.html
       format.js

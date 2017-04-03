@@ -15,7 +15,11 @@ class ProjectsController < OwnableController
 	end
 
 	def show
-		@voted = current_user.voted? @project
+		if current_user
+			@voted = current_user.voted? @project
+		else
+			@voted = true
+		end
 		@users_rating = @project.users_rating
 		@admins_rating = @project.admins_rating
 		@result_rating = @project.result_rating

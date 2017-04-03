@@ -4,6 +4,22 @@
       <div class="search-ifc">
         <%= form_tag search_path, method: :get, id: "search-form" do %>
           <%= text_field_tag :search, nil, placeholder: "Search by title" %>
+          <div class="search-options">
+            <a data-function="slide" data-target="#advanced-search">Advanced search</a>
+            <div id="advanced-search">
+              <div id="categories">
+                <h5>Select categories</h5>
+                <ul>
+                  <% Category.all.each do |category| %>
+                    <li>
+                      <%= check_box_tag 'categories[]', category.id, false, id: 'category_' + category.id.to_s %>
+                      <%= label_tag 'category_' + category.id.to_s, category.title %>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
         <% end %>
       </div>
     </div>

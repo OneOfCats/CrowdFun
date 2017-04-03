@@ -2,10 +2,14 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-@bindSearchFunctionality = (e) ->
+@submitForm = (e) ->
+  $.get $('#search-form').attr('action'), $('#search-form').serialize(), null, 'script'
+  return
+
+@bindSearchInputFunctionality = (e) ->
   if e.which != 16 && e.which != 17 && e.which != 18 && e.which != 32
-    $("#projects-block").html ""
-    $.get $('#search-form').attr('action'), $('#search-form').serialize(), null, 'script'
+    submitForm()
   false
 
-$(document).on 'keyup', '#search-form input[type="text"]', bindSearchFunctionality
+$(document).on 'keyup', '#search-form input[type="text"]', bindSearchInputFunctionality
+$(document).on 'change', '#search-form input[type="checkbox"]', submitForm

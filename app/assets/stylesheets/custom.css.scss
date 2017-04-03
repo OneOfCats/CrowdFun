@@ -453,6 +453,42 @@ input[type="text"]{
   }
 }
 
+#advanced-search{
+  display: none;
+  margin-top: 14px;
+}
+.search-options{
+  padding-left: 10px;
+}
+#advanced-search > div{
+  margin-bottom: 10px;
+}
+#categories{
+  li {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #5c5c5c;
+
+    input{
+      margin-right: 8px;
+    }
+    label{
+      cursor: pointer;
+    }
+  }
+}
+
+h5{
+  font-weight: bold;
+  font-size: 20px;
+  color: #5c5c5c;
+}
+.main h5{
+  display: block;
+  margin-bottom: 10px;
+}
+
 @media (max-width: 991px) {
   .wrapper{
     margin-bottom: 0;
@@ -462,5 +498,13 @@ input[type="text"]{
   }
   .push-footer{
     display: none;
+  }
+  .vertical-block .pic{
+    height: auto;
+    text-align: center;
+  }
+  .vertical-block .pic img{
+    width: auto;
+    max-height: 250px;
   }
 }

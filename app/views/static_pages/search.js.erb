@@ -1,4 +1,8 @@
-$("#projects-block").append('<%= escape_javascript( render partial: "projects/vertical_block", collection: @projects ) %>');
+<% if @projects.current_page == 1 %>
+  $("#projects-block").html('<%= escape_javascript( render partial: "projects/vertical_block", collection: @projects ) %>');
+<% else %>
+  $("#projects-block").append('<%= escape_javascript( render partial: "projects/vertical_block", collection: @projects ) %>');
+<% end %>
 <% if @projects.next_page %>
   $('.pagination').replaceWith('<%= j will_paginate @projects %>');
 <% else %>

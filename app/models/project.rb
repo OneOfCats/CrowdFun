@@ -7,6 +7,7 @@ class Project < ActiveRecord::Base
 	validates :goal, format: { :with => /\A\d+(?:\.\d{0,2})?\z/ }
 
 	belongs_to :user
+	belongs_to :category
 	has_many :comments, as: :commentable, dependent: :delete_all
 	has_many :updates, dependent: :delete_all
 	has_many :pledges
@@ -64,20 +65,24 @@ class Project < ActiveRecord::Base
 		result.present?
 	end
 
-	def self.search search
-		if search
-			where 'title LIKE ?', "%#{search}%"
-		else
-			self
-		end
-	end
-
 	def progress
 		100 * funds / goal
 	end
 
 	def days_left
 		(deadline - Time.zone.now).to_i / 1.day
+	end
+
+	def self.search search, categories
+		if search && categories
+			where 'lower(title) LIKE ? AND category_id in (?)', "%#{search.downcase}%", categories
+		elsif search
+			where 'lower(title) LIKE ?', "%#{search.downcase}%"
+		elsif categories
+			where 'category_id in (?)', categories
+		else
+			self
+		end
 	end
 
 	private

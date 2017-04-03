@@ -2,7 +2,9 @@
 <div class="col-md-4" data-project-id="<%= project.id %>">
   <div class="vertical-block">
     <div class="pic">
-      <%= image_tag project.main_picture %>
+      <%= link_to project do %>
+        <%= image_tag project.main_picture %>
+      <% end %>
     </div>
     <div class="content">
       <h4><%= link_to project.title, project_path(project) %></h4>
