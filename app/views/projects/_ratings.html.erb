@@ -1,0 +1,30 @@
+<div class="ratings" data-project-id="<%= project.id %>">
+  <div class="rating-block">
+    <div class="rating-circle">
+      <div class="slice"><span></span></div>
+      <div class="percents">
+        <%= project.users_rating.round %>%
+      </div>
+    </div>
+    Users rating
+  </div>
+  <div class="rating-block">
+    <div class="rating-circle">
+      <div class="percents">
+        <%= project.admins_rating.round %>%
+      </div>
+    </div>
+    Admins rating
+  </div>
+  <% if project.result? %>
+    <div class="rating-block">
+      <div class="rating-circle">
+        <div class="slice"><span></span></div>
+        <div class="percents">
+          <%= project.result_rating.round %>%
+        </div>
+      </div>
+      Result rating
+    </div>
+  <% end %>
+</div>

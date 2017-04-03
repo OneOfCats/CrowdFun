@@ -22,10 +22,10 @@ class Project < ActiveRecord::Base
 	end
 
 	def close_project
-		return false if !opened
+		return false unless opened
 		update_attribute :opened, false
 		if funds >= goal
-			user.account.update_attribute :balance, user.account.balance + funds
+			user.account.increment! :balance, funds
 		else
 			refund_pledges
 		end
@@ -43,7 +43,7 @@ class Project < ActiveRecord::Base
 		get_rating :admins
 	end
 
-	def pledgers_rating
+	def result_rating
 		get_rating :pledgers
 	end
 
@@ -56,10 +56,34 @@ class Project < ActiveRecord::Base
 		return 0
 	end
 
+	def funded?
+		funded
+	end
+
+	def result?
+		result.present?
+	end
+
+	def self.search search
+		if search
+			where 'title LIKE ?', "%#{search}%"
+		else
+			self
+		end
+	end
+
+	def progress
+		100 * funds / goal
+	end
+
+	def days_left
+		(deadline - Time.zone.now).to_i / 1.day
+	end
+
 	private
 
 	def publishing
-		return if !self.published
+		return unless published
 		self.touch(:published_at)
 		delay.close_project(run_at: realization_duration.days.from_now)
 	end

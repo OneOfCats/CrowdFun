@@ -42,10 +42,20 @@ class User < ActiveRecord::Base
     count_rating all, negative
   end
 
-  def pledgers_rating
-    all = Vote.where("project_id in (?)", projects.map { |project| project.id}).pledgers
+  def result_rating
+    all = Vote.where("project_id in (?)", projects.map { |project| project.id}).result
     negative = all.disliked
     count_rating all, negative
+  end
+
+  def voted? project
+    if project.user == self
+      true
+    elsif project.result?
+      project.votes.where(user: self).pledgers.first
+    else
+      project.votes.where(user: self).users.first
+    end
   end
 
   private

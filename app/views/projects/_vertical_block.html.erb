@@ -1,0 +1,37 @@
+<% project = vertical_block %>
+<div class="col-md-4" data-project-id="<%= project.id %>">
+  <div class="vertical-block">
+    <div class="pic">
+      <%= image_tag project.main_picture %>
+    </div>
+    <div class="content">
+      <h4><%= link_to project.title, project_path(project) %></h4>
+      <p>
+        <%= project.description %>
+      </p>
+      <div class="progress">
+        <div class="line">
+          <div class="done" style="width:<%= project.progress %>%;"></div>
+        </div>
+        <div class="info">
+          <div>
+            <%= 100 * project.funds / project.goal %>%<br>funded
+          </div>
+          <div>
+            $<%= project.goal %><br>goal
+          </div>
+          <div>
+            <% if !project.opened || project.days_left <= 0 %>
+              Ended
+            <% else %>
+              <%= project.days_left %><br>
+              <%= project.days_left == 1 ? 'day' : 'days' %>
+              to go
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <%= render partial: 'projects/ratings', locals: { project: project } %>
+    </div>
+  </div>
+</div>

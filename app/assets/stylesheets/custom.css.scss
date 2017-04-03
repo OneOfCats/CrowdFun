@@ -73,8 +73,9 @@ img{
   max-height: 100%;
 }
 
-body{
+html, body{
   font-family: "Latha", Helvetica;
+  height: 100%;
 }
 
 .top-bar{
@@ -225,7 +226,6 @@ body{
   margin-bottom: 20px;
   font-size: 20px;
   color: #5c5c5c;
-  font-family: Calibri;
 }
 
 .progress{
@@ -264,6 +264,7 @@ body{
   width: 127px;
   text-align: center;
   color: #5d5d5d;
+  vertical-align: top;
   text-align: center;
 }
 .rating-circle{
@@ -317,7 +318,7 @@ body{
   margin-bottom: 22px;
 }
 .vertical-block .pic{
-  max-height: 181px;
+  height: 181px;
 }
 .vertical-block .pic img{
   width: 100%;
@@ -329,9 +330,15 @@ body{
   display: block;
   font-size: 16px;
   color: #5c5c5c;
-  font-family: Calibri;
   line-height: 20px;
   margin-bottom: 18px;
+  height: 60px;
+  overflow: hidden;
+}
+.vertical-block h4 a{
+  height: 27px;
+  display: block;
+  overflow: hidden;
 }
 .vertical-block .content{
   padding: 28px 32px 14px;
@@ -377,14 +384,10 @@ footer{
   padding: 58px 0;
   background: #363636;
 }
-footer .importnat-links{
-  margin-bottom: 24px;
-}
 footer li{
   display: block;
 }
 footer a{
-  font-family: Calibri;
   font-size: 18px;
   color: white;
   margin-bottom: 4px;
@@ -393,4 +396,71 @@ footer a{
 footer a:hover{
   text-decoration: underline;
   color: white;
+}
+
+.main p{
+  display: block;
+  margin-bottom: 20px;
+  font-style: 20px;
+  color: #5c5c5c;
+}
+.main h1, .main h2, .main h3{
+  color: #5c5c5c;
+  margin-bottom: 20px;
+  display: block;
+}
+.main h1{
+  font-size: 30px
+}
+.main h2{
+  font-size: 26px;
+}
+.main h3{
+  font-size: 22px;
+}
+
+.wrapper{
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto;
+}
+footer{
+  height: 40px;
+  padding: 12px 0 8px;
+}
+
+input[type="text"]{
+  height: 30px;
+  padding: 0 10px;
+  font-size: 18px;
+}
+
+.pagination{
+  color: #5c5c5c;
+  font-size: 20px;
+  margin: 20px 0;
+  text-align: center;
+
+  a{
+    color: #5c5c5c;
+  }
+  em{
+    text-decoration: underline;
+  }
+  span{
+    color: #d7d7d7;
+  }
+}
+
+@media (max-width: 991px) {
+  .wrapper{
+    margin-bottom: 0;
+  }
+  footer{
+    height: auto;
+  }
+  .push-footer{
+    display: none;
+  }
 }

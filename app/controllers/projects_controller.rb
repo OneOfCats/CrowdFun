@@ -15,16 +15,10 @@ class ProjectsController < OwnableController
 	end
 
 	def show
-		if @project.user == current_user
-			@voted = true
-		elsif @project.funded
-			@voted = @project.votes.where(user: current_user).pledgers.first
-		else
-			@voted = @project.votes.where(user: current_user).users.first
-		end
+		@voted = current_user.voted? @project
 		@users_rating = @project.users_rating
 		@admins_rating = @project.admins_rating
-		@pledgers_rating = @project.pledgers_rating
+		@result_rating = @project.result_rating
 	end
 
 	def edit
@@ -52,6 +46,7 @@ class ProjectsController < OwnableController
 		redirect_to project_path(@project)
 	end
 
+=begin
 	def like
 		if @project.opened && !@project.funded
 			vote :liked, :users
@@ -73,10 +68,19 @@ class ProjectsController < OwnableController
 			format.js { render 'vote.js.erb' }
 		end
 	end
+=end
 
-	def vote status, group
-		return if @project.votes.where(user: current_user, group: group).first
-		@vote = @project.votes.new(user: current_user, status: status, group: group || "admins")
+	def like
+		vote :liked
+	end
+
+	def dislike
+		vote :disliked
+	end
+
+	def vote status
+		return if current_user.voted? @project
+		@vote = @project.votes.new user: current_user, status: status
 		unless @vote.save
 			flash[:notice] = @vote.errors.full_messages.to_sentence
 		end

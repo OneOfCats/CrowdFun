@@ -28,7 +28,11 @@ Rails.application.routes.draw do
   get 'account/edit_balance' => 'accounts#new_balance', as: :new_balance
   post 'account/edit_balance' => 'accounts#update_balance', as: :update_balance
 
+  get 'search' => 'static_pages#search', as: :search
+  get 'about' => 'static_pages#about', as: :about
+
   root 'application#index'
+  # root 'static_pages#home'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

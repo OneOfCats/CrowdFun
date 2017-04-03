@@ -9,6 +9,7 @@
 User.delete_all
 Project.delete_all
 Vote.delete_all
+Pledge.delete_all
 
 admins = []
 5.times do |i|
@@ -24,7 +25,9 @@ users = []
 end
 users.each do |user|
   user.save
+  user.account.update_attributes card_number: '342445109495238', card_holder_first_name: 'Name', card_holder_second_name: 'Second', balance: 1000
 end
+
 
 projects = []
 projects << Project.new(user: users[0], title: "Project0", description: "Project0 long description here", main_picture: "Pic0.jpg", main_video: "https://youtu.be/8nTFjVm9sTQ", realization_duration: 4, goal: 100, published: true, published_at: 1.minute.ago)
@@ -78,7 +81,7 @@ end
 (3..7).each do |i|
   projects[5].votes.create user: users[i]
 end
-(2..5).each do |i|
+(2..4).each do |i|
   projects[6].votes.create user: admins[i], status: Vote.statuses[:disliked], group: Vote.groups[:admins]
 end
 (1..4).each do |i|
@@ -97,4 +100,47 @@ end
 end
 (3..8).each do |i|
   projects[9].votes.create user: users[i]
+end
+
+(0..3).each do |i|
+  projects[0].pledges.create user: users[i], amount: (10 * i), visible: true, message: "Pledge of the user number #{i}"
+end
+
+(2..4).each do |i|
+  projects[1].pledges.create user: users[i], amount: (10 * i), visible: true, message: "Pledge of the user number #{i}"
+end
+
+(6..7).each do |i|
+  projects[2].pledges.create user: users[i], amount: (10 * i), visible: true, message: "Pledge of the user number #{i}"
+end
+
+(1..7).each do |i|
+  projects[3].pledges.create user: users[i], amount: (10 * i), visible: true, message: "Pledge of the user number #{i}"
+end
+
+(2..3).each do |i|
+  projects[4].pledges.create user: users[i], amount: (10 * i), visible: true, message: "Pledge of the user number #{i}"
+end
+
+(6..7).each do |i|
+  projects[5].pledges.create user: users[i], amount: (10 * i), visible: true, message: "Pledge of the user number #{i}"
+end
+
+
+(5..7).each do |i|
+  projects[6].pledges.create user: users[i], amount: (10 * i), visible: true, message: "Pledge of the user number #{i}"
+end
+
+
+(2..4).each do |i|
+  projects[7].pledges.create user: users[i], amount: (10 * i), visible: true, message: "Pledge of the user number #{i}"
+end
+
+(7..9).each do |i|
+  projects[8].pledges.create user: users[i], amount: (10 * i), visible: true, message: "Pledge of the user number #{i}"
+end
+
+
+(0..3).each do |i|
+  projects[9].pledges.create user: users[i], amount: (10 * i), visible: true, message: "Pledge of the user number #{i}"
 end

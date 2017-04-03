@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="search-ifc">
+        <%= form_tag search_path, method: :get, id: "search-form" do %>
+          <%= text_field_tag :search, nil, placeholder: "Search by title" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row" id="projects-block">
+    <%= render partial: 'projects/vertical_block', collection: @projects %>
+  </div>
+  <div id="infinite-scrolling">
+    <%= will_paginate @projects %>
+  </div>
+</div>
