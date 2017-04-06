@@ -8,8 +8,6 @@
 </head>
 <body>
   <div class="wrapper">
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
     <div class="container top-bar">
       <div class="row">
         <div class="col-xs-12">
@@ -34,6 +32,8 @@
         </div>
       </div>
     </div>
+    <%= notice %>
+    <%= alert %>
     <%= yield %>
     <div class="push-footer"></div>
   </div>

@@ -497,6 +497,204 @@ h5{
   margin-bottom: 10px;
 }
 
+/* ------------ project page ---------- */
+
+.grey-back{
+  background: #f7f7f7;
+}
+.project-header{
+  padding: 58px 0 0;
+  margin-bottom: 10px;
+}
+h1{
+  display: block;
+  font-size: 50px;
+  color: #585858;
+  margin-bottom: 16px;
+}
+.user-info .line{
+  overflow: hidden;
+  margin-bottom: 7px;
+}
+.user-info .avatar{
+  float: right;
+  height: 70px;
+  width: 70px;
+  border-radius: 60%;
+  overflow: hidden;
+}
+.user-info .avatar img{
+  width: 100%;
+  height: 100%;
+}
+.user-info span{
+  display: block;
+  text-align: right;
+  font-size: 14px;
+  color: #666666;
+}
+.user-info span a{
+  text-decoration: none;
+  color: #585858;
+}
+.user-info span a:hover{
+  text-decoration: underline;
+}
+.project-page{
+  padding-bottom: 64px;
+  margin-bottom: 17px;
+}
+.project-info{
+  margin-bottom: 30px;
+}
+.project-info .pic img{
+  max-height: 278px;
+}
+.project-info .progress{
+  margin-top: 30px;
+}
+.project-page p{
+  line-height: 26px;
+  margin-bottom: 0;
+}
+.tabs{
+  border-bottom: 2px solid #c2c2c2;
+  margin-bottom: 52px;
+}
+.tabs a{
+  display: inline-block;
+  vertical-align: bottom;
+  line-height: 55px;
+  padding-bottom: 7px;
+  margin-left: 60px;
+  font-size: 20px;
+  text-align: center;
+  text-decoration: none;
+  color: #666666;
+}
+.tabs a:hover{
+  text-decoration: none;
+  color: #666666;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #acd373;
+}
+.tabs a:first-child{
+  margin-left: 0;
+}
+.tabs a.active{
+  padding-bottom: 0;
+  border-bottom: 7px solid #acd373;
+}
+.project-updates{
+  margin-bottom: 55px;
+}
+.project-update{
+  overflow: hidden;
+}
+.project-update-info{
+  float: left;
+  color: #666666;
+  text-align: right;
+  padding-right: 32px;
+  line-height: 24px;
+  width: 14%;
+  position: relative;
+  margin-top: 20px;
+}
+.project-update-info:before{
+  display: block;
+  content: "";
+  height: 21px;
+  width: 21px;
+  border-radius: 13px;
+  border: 4px solid #acd373;
+  background: white;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: -12px;
+}
+.project-update-content{
+  float: left;
+  width: 50%;
+  padding: 20px 0 80px 26px;
+  border-left: 3px solid #acd373;
+}
+.project-update:last-child .project-update-content{
+  padding-bottom: 20px;
+}
+.project-update-content p{
+  display: block;
+  font-size: 20px;
+  color: #666666;
+  margin-bottom: 22px;
+}
+.project-update-content h3{
+  display: block;
+  margin-bottom: 22px;
+  font-size: 26px;
+  color: #666666;
+}
+.project-update-content h3 a{
+  color: #b3b3b3;
+  font-size: 14px;
+  margin-left: 20px;
+}
+.project-update-content h3 a:first-child{
+  color: #666666;
+  font-size: 26px;
+  margin-left: 0;
+}
+.project-update-content img{
+  margin-bottom: 22px;
+}
+
+@media(max-width:991px){
+  .project-info .pic{
+    text-align: center;
+  }
+  .project-header h1{
+    text-align: center;
+  }
+  .user-info .avatar{
+    margin: 0 auto;
+    display: block;
+    float: none;
+  }
+  .user-info span{
+    text-align: center;
+  }
+  .tabs a{
+    font-size: 14px;
+    margin-left: 15px;
+    line-height: 32px;
+  }
+  .project-update-content{
+    width: 80%;
+    padding-left: 15px;
+    padding-bottom: 40px;
+    padding-top: 15px;
+  }
+  .project-update-info{
+    width: 19%;
+    font-size: 13px;
+    text-align: left;
+  }
+  .project-update-content h3 a:first-child{
+    font-size: 18px;
+  }
+  .project-update-content h3 a{
+    margin-left: 0;
+    display: block;
+  }
+  .project-update-content p{
+    font-size: 16px;
+  }
+  h1{
+    font-size: 36px;
+  }
+}
+
 @media (max-width: 991px) {
   .wrapper{
     margin-bottom: 0;
