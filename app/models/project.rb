@@ -57,6 +57,21 @@ class Project < ActiveRecord::Base
 		return 0
 	end
 
+	def get_rounded_rating group
+		rating = get_rating group
+		case rating
+			when 0..6 then rating = 0
+			when 6..18 then rating = 12
+			when 19..31 then rating = 25
+			when 31..43 then rating = 38
+			when 44..56 then rating = 50
+			when 51..67 then rating = 62
+			when 68..80 then rating = 75
+			when 81..94 then rating = 88
+			when 95..100 then rating = 100
+		end
+	end
+
 	def funded?
 		funded
 	end
