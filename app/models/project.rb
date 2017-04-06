@@ -73,6 +73,10 @@ class Project < ActiveRecord::Base
 		(deadline - Time.zone.now).to_i / 1.day
 	end
 
+	def short_description characters
+		description.split[0...characters].join(' ').html_safe
+	end
+
 	def self.search search, categories
 		if search && categories
 			where 'lower(title) LIKE ? AND category_id in (?)', "%#{search.downcase}%", categories

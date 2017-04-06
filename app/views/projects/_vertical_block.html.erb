@@ -1,5 +1,9 @@
 <% project = vertical_block %>
-<div class="col-md-4" data-project-id="<%= project.id %>">
+<% if local_assigns[:minified] %>
+  <div class="col-md-6" data-project-id="<%= project.id %>">
+<% else %>
+  <div class="col-md-4" data-project-id="<%= project.id %>">
+<% end %>
   <div class="vertical-block">
     <div class="pic">
       <%= link_to project do %>
@@ -9,31 +13,16 @@
     <div class="content">
       <h4><%= link_to project.title, project_path(project) %></h4>
       <p>
-        <%= project.description %>
+        <% if local_assigns[:minified] %>
+          by <%= project.user.email %>
+        <% else %>
+          <%= project.description %>
+        <% end %>
       </p>
-      <div class="progress">
-        <div class="line">
-          <div class="done" style="width:<%= project.progress %>%;"></div>
-        </div>
-        <div class="info">
-          <div>
-            <%= 100 * project.funds / project.goal %>%<br>funded
-          </div>
-          <div>
-            $<%= project.goal %><br>goal
-          </div>
-          <div>
-            <% if !project.opened || project.days_left <= 0 %>
-              Ended
-            <% else %>
-              <%= project.days_left %><br>
-              <%= project.days_left == 1 ? 'day' : 'days' %>
-              to go
-            <% end %>
-          </div>
-        </div>
-      </div>
-      <%= render partial: 'projects/ratings', locals: { project: project } %>
+      <% unless local_assigns[:minified] %>
+        <%= render partial: 'projects/progress', locals: { project: project } %>
+        <%= render partial: 'projects/ratings', locals: { project: project } %>
+      <% end %>
     </div>
   </div>
 </div>

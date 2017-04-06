@@ -14,3 +14,47 @@
     </div>
   </div>
 </div>
+<div class="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="huge-block">
+          <h3><a href="">Loved by users</a></h3>
+          <%= render partial: 'projects/huge_block', collection: [@project_users_top_one] %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="blocks-line">
+          <h3><a href="">Popular</a></h3>
+          <div class="row">
+            <%= render partial: 'projects/vertical_block', collection: @projects_popular_random %>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <a href="" class="btn-hollow">See All</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="blocks-line">
+          <h3><a href="">Watch finished projects</a></h3>
+          <div class="row">
+            <%= render partial: 'projects/vertical_block', collection: @projects_finished, locals: { minified: true } %>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <a href="" class="btn">See All</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

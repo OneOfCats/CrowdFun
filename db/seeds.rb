@@ -36,22 +36,24 @@ end
 
 
 projects = []
-projects << Project.new(user: users[0], title: "Project0", description: BetterLorem.w(200, true), main_picture: "Pic0.jpg", main_video: "https://youtu.be/8nTFjVm9sTQ", realization_duration: 4, goal: 100, published: true, published_at: 1.minute.ago)
-projects << Project.new(user: users[0], title: "Project1", description: BetterLorem.w(200, true), main_picture: "Pic1.jpg", main_video: "https://youtu.be/8nTFjVm9sTQ", realization_duration: 8, goal: 200, published: true, published_at: 1.minute.ago)
+projects << Project.new(user: users[0], title: "Project0", description: BetterLorem.w(200, true), main_picture: "/images/Pic0.jpg", main_video: "https://youtu.be/8nTFjVm9sTQ", realization_duration: 4, goal: 100, published: true, published_at: 1.minute.ago)
+projects << Project.new(user: users[0], title: "Project1", description: BetterLorem.w(200, true), main_picture: "/images/Pic1.jpg", main_video: "https://youtu.be/8nTFjVm9sTQ", realization_duration: 8, goal: 200, published: true, published_at: 1.minute.ago)
 (3..6).each do |i|
-  projects << Project.new(user: users[1], title: "Project#{i}", description: BetterLorem.w(200, true), main_picture: "Pic#{i}.jpg", main_video: "https://youtu.be/8nTFjVm9sTQ", realization_duration: 3, goal: 100, published: true, published_at: 1.minute.ago)
+  projects << Project.new(user: users[1], title: "Project#{i}", description: BetterLorem.w(200, true), main_picture: "/images/Pic#{i}.jpg", main_video: "https://youtu.be/8nTFjVm9sTQ", realization_duration: 3, goal: 100, published: true, published_at: 1.minute.ago)
 end
 (7..10).each do |i|
-  projects << Project.new(user:users[2], title: "Project#{i}", description: BetterLorem.w(200, true), main_picture: "Pic#{i}.jpg", main_video: "https://youtu.be/8nTFjVm9sTQ", realization_duration: 3, goal: 100, published: true, published_at: 1.minute.ago)
+  projects << Project.new(user:users[2], title: "Project#{i}", description: BetterLorem.w(200, true), main_picture: "/images/Pic#{i}.jpg", main_video: "https://youtu.be/8nTFjVm9sTQ", realization_duration: 3, goal: 100, published: true, published_at: 1.minute.ago)
 end
+projects[6].result = "Project 7 result!"
+projects[5].result = "Project 6 result!"
 prng = Random.new
 projects.each do |project|
   project.category = categories[prng.rand(0..3)]
   project.save
 end
-projects[0].updates.create title: "Project0 Update0", description: BetterLorem.w(120, true), main_picture: "Pic0.jpg", main_video: "https://youtu.be/8nTFjVm9sTQ"
-projects[0].updates.create title: "Project0 Update1", description: BetterLorem.w(120, true), main_picture: "Pic0.jpg", main_video: "https://youtu.be/8nTFjVm9sTQ"
-projects[1].updates.create title: "Project1 Update0", description: BetterLorem.w(120, true), main_picture: "Pic0.jpg", main_video: "https://youtu.be/8nTFjVm9sTQ"
+projects[0].updates.create title: "Project0 Update0", description: BetterLorem.w(120, true), main_picture: "/images/Pic0.jpg", main_video: "https://youtu.be/8nTFjVm9sTQ"
+projects[0].updates.create title: "Project0 Update1", description: BetterLorem.w(120, true), main_picture: "/images/Pic0.jpg", main_video: "https://youtu.be/8nTFjVm9sTQ"
+projects[1].updates.create title: "Project1 Update0", description: BetterLorem.w(120, true), main_picture: "/images/Pic0.jpg", main_video: "https://youtu.be/8nTFjVm9sTQ"
 
 4.times do |i|
   projects[0].comments.create user: users[i], content: BetterLorem.w(30, true)

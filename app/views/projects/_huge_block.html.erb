@@ -1,0 +1,20 @@
+<% project = huge_block %>
+<div class="huge-block-body">
+  <div class="huge-block-row">
+    <%= link_to project, class: 'photo' do %>
+      <img src="<%= project.main_picture %>" alt="">
+    <% end %>
+    <div class="content">
+      <div class="content-wrapper">
+        <h4>
+          <%= link_to project.title, project %>
+        </h4>
+        <p>
+          <%= project.description.truncate 131 %>
+        </p>
+        <%= render partial: 'projects/progress', locals: { project: project } %>
+        <%= render partial: 'projects/ratings', locals: { project: project } %>
+      </div>
+    </div>
+  </div>
+</div>
