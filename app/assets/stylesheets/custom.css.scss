@@ -346,12 +346,13 @@ h4 a{
 }
 .vertical-block h4 a{
   height: 27px;
+  line-height: 27px;
   display: block;
   overflow: hidden;
   color: #5c5c5c;
 }
 .vertical-block .content{
-  padding: 28px 32px 14px;
+  padding: 28px 23px 14px;
 }
 .vertical-block .progress .info > div{
   font-size: 16px;
@@ -436,7 +437,7 @@ h3{
   margin: 0 auto;
 }
 footer{
-  height: 40px;
+  height: 42px;
   padding: 12px 0 8px;
 }
 
@@ -464,14 +465,19 @@ input[type="text"]{
 }
 
 #advanced-search{
-  display: none;
-  margin-top: 14px;
+  h5{
+    margin-top: 14px;
+  }
+
+  ul{
+    margin-bottom: 0;
+  }
 }
 .search-options{
   padding-left: 10px;
 }
 #advanced-search > div{
-  margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 #categories{
   li {

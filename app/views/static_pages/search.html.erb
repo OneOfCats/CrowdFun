@@ -5,8 +5,9 @@
         <%= form_tag search_path, method: :get, id: "search-form" do %>
           <%= text_field_tag :search, nil, placeholder: "Search by title" %>
           <div class="search-options">
-            <a data-function="slide" data-target="#advanced-search">Advanced search</a>
-            <div id="advanced-search">
+            <!-- <a data-function="slide" data-target="#advanced-search">Advanced search</a> -->
+            <a data-toggle="collapse" href="#advanced-search">Advanced search</a>
+            <div id="advanced-search" class="collapse">
               <div id="categories">
                 <h5>Select categories</h5>
                 <ul>
