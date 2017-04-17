@@ -13,3 +13,4 @@
 
 $(document).on 'keyup', '#search-form input[type="text"]', bindSearchInputFunctionality
 $(document).on 'change', '#search-form input[type="checkbox"]', submitForm
+$(document).on 'change', '#search-form input[type="radio"]', submitForm

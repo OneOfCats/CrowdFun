@@ -49,10 +49,10 @@ class Project < ActiveRecord::Base
 	end
 
 	def get_rating group
-		negative = votes.disliked.where(group: Vote.groups[group])
+		positive = votes.liked.where(group: Vote.groups[group])
 		all = votes.where(group: Vote.groups[group])
 		unless all.count == 0
-			return 100 - (negative.count.to_f / all.count.to_f) * 100
+			return 100 * positive.count.to_f / all.count.to_f
 		end
 		return 0
 	end
