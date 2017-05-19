@@ -1,0 +1,8 @@
+var content = '<%= escape_javascript(render partial: "comments/comment", locals: { comment: @comment }) %>';
+if($(".modal.in").length > 0){
+  $(".modal.in #comments").prepend(content);
+  $(".modal.in #comment_content").val("");
+} else {
+  $("#comments").prepend(content);
+  $("#comment_content").val("");
+}

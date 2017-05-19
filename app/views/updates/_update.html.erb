@@ -1,0 +1,18 @@
+<div class="update-header">
+  <h2><%= @update.title %></h2>
+  <button type="button" class="close" data-dismiss="modal">&times;</button>
+</div>
+
+<div class="published-at">
+  <%= @update.created_at %>
+</div>
+<%= image_tag @update.main_picture, class: 'update-image' %>
+<p><%= @update.description %></p>
+
+<% if current_user %>
+  <h3>Leave a comment:</h3>
+  <%= render partial: 'comments/form', locals: {commentable_type: controller_name.classify, commentable_id: @update.id} %>
+<% else %>
+  <h3>Login to leave a comment</h3>
+<% end %>
+<%= render partial: 'comments/comments', locals: {comments: @comments} %>

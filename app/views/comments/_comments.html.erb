@@ -1,20 +1,5 @@
 <div id="comments">
 	<% comments.each do |c| %>
-		<div class="comment">
-			<% unless local_assigns[:hide_mail] %>
-				<span>
-					<%= User.find(c.user_id).email %>
-				</span>
-			<% end %>
-			<span><%= local_time(c.created_at) %></span>
-			<p>
-				<%= c.content %>
-			</p>
-			<% if local_assigns[:show_direction] %>
-				<p>
-					address: <%= link_to 'показать на странице', path_to_commentable(c.commentable) %>
-				</p>
-			<% end %>
-		</div>
+		<%= render partial: 'comments/comment', locals: { comment: c } %>
 	<% end %>
 </div>

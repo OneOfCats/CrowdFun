@@ -1,0 +1,19 @@
+<div class="comment">
+  <%= link_to comment.user, class: 'avatar' do %>
+    <%= image_tag "/images/avatar.jpg" %>
+  <% end %>
+  <% unless local_assigns[:hide_mail] %>
+    <%= link_to comment.user do %>
+      <%= comment.user.email %>
+    <% end %>
+  <% end %>
+  <span class="published-at"><%= local_time(comment.created_at) %></span>
+  <p>
+    <%= comment.content %>
+  </p>
+  <% if local_assigns[:show_direction] %>
+    <p>
+      address: <%= link_to 'показать на странице', path_to_commentable(comment.commentable) %>
+    </p>
+  <% end %>
+</div>

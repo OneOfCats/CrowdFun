@@ -1,6 +1,6 @@
 <div id="create_comment">
-	<%= form_for :comment, url: comments_path(commentable_type: local_assigns[:commentable_type], commentable_id: local_assigns[:commentable_id]) do |f| %>
-		<%= f.text_field :content %>
-		<%= f.submit "Comment" %>
+	<%= form_for :comment, url: comments_path(commentable_type: local_assigns[:commentable_type], commentable_id: local_assigns[:commentable_id]), remote: true, format: :js do |f| %>
+		<%= f.text_area :content %>
+		<%= f.submit "Comment", class: 'btn' %>
 	<% end %>
 </div>

@@ -1,12 +1,33 @@
-<h1>Profile</h1>
-<h3>Your balance:</h3>
-<%= number_to_currency @balance %>
-<%= link_to 'Пополнить баланс', new_balance_path %>
-
-<%= link_to 'Edit account info', edit_account_path %>
-
-<%= link_to 'Create project', new_project_path %>
-<h3>Your projects:</h3>
-<% @projects.each do |p| %>
-	<%= link_to p.title, p %>
-<% end %>
+<div class="grey-back project-page page-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <h2>My profile</h2>
+        <div class="margin-bottom">
+          Balance: <%= number_to_currency @balance %><br>
+        </div>
+        
+        <%= link_to 'Deposit', new_balance_path, class: 'btn margin-bottom' %><br>
+        <%= link_to 'Edit credentials', edit_account_path, class: 'margin-bottom btn-hollow' %><br>
+      </div>
+      <div class="col-sm-6">
+        <div class="project-list">
+          <h2>My projects</h2>
+          <%= link_to 'Create a project', new_project_path, class: 'btn margin-bottom' %>
+          <% if @projects.count > 0 %>
+            <div class="projects">
+              <% @projects.each do |p| %>
+                <div class="project">
+                  <h3><%= link_to p.title, p %></h3>
+                  <%= image_tag p.main_picture %>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <h3>You don't have any projects yet</h3>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

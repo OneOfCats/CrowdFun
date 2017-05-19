@@ -18,12 +18,31 @@
         <div class="project-header">
           <div class="row">
             <div class="col-md-7">
-              <h1><%= @project.title %></h1>
+              <h1>
+                <%= @project.title %>
+                <% unless @voted %>
+                  <div id="rating-buttons">
+                    <%= link_to like_project_url(@project), remote: true, method: :post, class: 'rating-button like' do %>
+                      <%= image_tag '/like.png' %>
+                    <% end %>
+                    <%= link_to dislike_project_url(@project), remote: true, method: :post, class: 'rating-button dislike' do %>
+                      <%= image_tag '/dislike.png' %>
+                    <% end %>
+                  </div>
+                <% end %>
+              </h1>
+              <div class="published-at">
+                <% if @project.published %>
+                  Published at: <%= local_time(@project.published_at) %>
+                <% end %>
+              </div>
             </div>
             <div class="col-md-5">
               <div class="user-info">
                 <div class="line">
-                  <a href="" class="avatar"><%= image_tag "/images/avatar.jpg" %></a>
+                  <%= link_to @project.user, class: 'avatar' do %>
+                    <%= image_tag "/images/avatar.jpg" %>
+                  <% end %>
                 </div>
                 <div class="line">
                   <span>by <%= link_to @project.user.email, @project.user %></span>
@@ -40,8 +59,16 @@
               </div>
             </div>
             <div class="col-md-5">
+              <div class="text-center">
+                <%= link_to 'Support!', new_project_pledge_path(@project), class: 'support-link' unless @project.user == current_user || !@project.opened %><br>
+                <% if @project.pledgers.count > 0 %>
+                  <%= link_to 'See sponsors', project_pledges_path(@project), class: 'see-sponsors', remote: true %>
+                <% end %>
+              </div>
             	<%= render partial: 'projects/progress', locals: { project: @project } %>
-              <%= render partial: 'projects/ratings', locals: { project: @project } %>
+              <div id="ratings">
+                <%= render partial: 'projects/ratings', locals: { project: @project } %>
+              </div>
             </div>
           </div>
         </div>
@@ -58,10 +85,14 @@
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
-        	<% if @project.updates %>
-          	<a href="" class="active">Updates</a>
-          <% end %>
-          <a href="" <% unless @project.updates %>class="active"<% end %>>Comments</a>
+          <ul>
+            <% if @project.updates %>
+              <li class="active"><a href="#updates" data-toggle="tab">Updates</a></li>
+            <% end %>
+            <li>
+              <a href="#comments-block" <% unless @project.updates %>class="active"<% end %> data-toggle="tab">Comments</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -69,20 +100,20 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <div class="tabs-content">
+        <div class="tab-content">
         	<% if @project.updates %>
-	          <div class="tab-1">
+	          <div class="tab-pane fade in active" id="updates">
 	            <div class="project-updates">
 	            	<% @project.updates.each do |update| %>
 		              <div class="project-update">
 		                <div class="project-update-info">
-		                  <% update.created_at.strftime "%B:%d" %><br>
-		                  <% update.created_at.strftime "%Y" %>
+		                  <%= update.created_at.strftime "%B %d" %><br>
+		                  <%= update.created_at.strftime "%Y" %>
 		                </div>
 		                <div class="project-update-content">
 		                  <h3>
-		                  	<%= link_to update.title, project_update_path(@project, update) %>
-		                  	<%= link_to project_update_path(@project, update) do %>
+		                  	<%= link_to update.title, project_update_path(@project, update), remote: true %>
+		                  	<%= link_to project_update_path(@project, update), remote: true do %>
 		                  		<span><%= update.comments.count %> comments</span>
 		                  	<% end %>
 		                  </h3>
@@ -96,55 +127,32 @@
 	            </div>
 	          </div>
 	        <% end %>
+          <div class="tab-pane fade <% unless @project.updates %>in active<% end %>" id="comments-block">
+            <% if current_user %>
+              <h3>Leave a comment:</h3>
+              <%= render partial: 'comments/form', locals: {commentable_type: controller_name.classify, commentable_id: @project.id} %>
+            <% else %>
+              <h3>Login to leave a comment</h3>
+            <% end %>
+            <%= render partial: 'comments/comments', locals: {comments: @project.comments} %>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<div id="project-modal" class="modal fade" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
-<% if @project.funded %>
-	<h2>Funded!</h2>
-<% elsif !@project.opened && @project.published %>
-	<h2>Closed!</h2>
-<% end %>
+    </div>
+  </div>
+</div>
+
 <% if @project.result %>
 	<div id="result">
 		<h2>Result:</h2>
 		<%= @project.result %><br><br>
 	</div>
-<% end %>
-<span>by <%= link_to @project.user.email, user_path(@project.user) %></span>
-
-<%= link_to 'Pledge!', new_project_pledge_path(@project) unless @project.user == current_user || !@project.opened %>
-<%= link_to 'See Pledgers', project_pledges_path(@project) %>
-
-<div id="likes">
-	<div id="rating">
-		Рейтинг пользователей: <%= @users_rating.round %>%<br>
-		Рейтинг админов: <%= @admins_rating.round %>%<br>
-		<% if @project.funded %>
-			Рейтинг спонсоров: <%= @pledgers_rating.round %>%
-		<% end %>
-	</div>
-	<div class="buttons">
-		<% unless @voted %>
-			<%= link_to 'Like', like_project_url(@project), remote: true, method: :post %>
-			<%= link_to 'Dislike', dislike_project_url(@project), remote: true, method: :post %>
-		<% end %>
-	</div>
-</div>
-
-<% if @project.published %>
-	Published at: <%= local_time(@project.published_at) %>
-<% end %>
-
-<h3>Comments:</h3>
-<%= render partial: 'comments/comments', locals: {comments: @project.comments} %>
-
-<% if current_user %>
-	<h2>Leave a comment:</h2>
-	<%= render partial: 'comments/form', locals: {commentable_type: controller_name.classify, commentable_id: @project.id} %>
-<% else %>
-	<h2>Login to leave a comment</h2>
 <% end %>

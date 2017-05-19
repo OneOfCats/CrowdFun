@@ -1,5 +1,10 @@
 <div class="progress">
   <div class="line">
+    <% if project.progress >= 100 || project.funded %>
+      <span>Funded!</span>
+    <% elsif !project.opened && project.published %>
+      <span>Closed!</span>
+    <% end %>
     <div class="done" style="width:<%= project.progress %>%;"></div>
   </div>
   <div class="info">

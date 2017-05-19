@@ -2,6 +2,10 @@ class PledgesController < ApplicationController
 	before_action :get_project
 
 	def index
+		respond_to do |format|
+			format.html
+			format.js { render template: 'pledges/index' }
+		end
 	end
 
 	def new

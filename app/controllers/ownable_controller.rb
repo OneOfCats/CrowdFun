@@ -9,6 +9,6 @@ class OwnableController < ApplicationController
 	end
 
 	def find_project
-		@project = Project.find(params[:id] || params[:project_id])
+		@project = Project.find(params[:project_id] || params[:id])
 	end
 end

@@ -1,15 +1,33 @@
-<h1><%= link_to @project.title, project_path(@project) %></h1>
-<%= number_to_currency @project.funds %> out of <%= @project.goal %>
-<h2>Pledge</h2>
-You have <%= number_to_currency current_user.account.balance %>
-<div id="pledge">
-	<%= form_for [@project, @pledge] do |f| %>
-		<%= f.label :amount %>
-		<%= f.text_field :amount %>
-		<%= f.label :message %>
-		<%= f.text_area :message %>
-		<%= f.label :visible %>
-		<%= f.check_box :visible, checked: true %>
-		<%= f.submit %>
-	<% end %>
+<div class="grey-back project-page">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div id="pledge" class="page-padding">
+          <h2>Make a pledge on <%= link_to @project.title, project_path(@project) %></h2>
+          <div class="margin-bottom">
+            This project now has <%= number_to_currency @project.funds %> out of <%= number_to_currency @project.goal %><br>
+            You have <%= number_to_currency current_user.account.balance %>
+          </div>
+
+          <%= form_for [@project, @pledge] do |f| %>
+            <div class="form-block">
+              <%= f.label :amount %>
+              <%= f.text_field :amount, placeholder: 'Enter amount in $' %>
+            </div>
+            <div class="form-block">
+              <%= f.label :message %>
+              <%= f.text_area :message %>
+            </div>
+            <div class="form-block">
+              <%= f.label :visible %>
+              <%= f.check_box :visible, checked: true %>
+            </div>
+            <div class="form-block">
+              <%= f.submit 'Support!', class: 'btn' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

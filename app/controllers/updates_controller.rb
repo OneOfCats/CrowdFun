@@ -6,6 +6,11 @@ class UpdatesController < OwnableController
 		@update = Update.find(params[:id])
 		@project = @update.project
 		@comments = @update.comments
+
+		respond_to do |format|
+			format.html
+			format.js
+		end
 	end
 
 	def new

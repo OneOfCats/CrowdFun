@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-	before_action :define_relative, only: :create
+	before_action :define_relative
 
 	def create
 		if current_user
@@ -10,7 +10,9 @@ class CommentsController < ApplicationController
 		else
 			flash[:notice] = 'You are not logged in'
 		end
-		redirect_to :back
+		respond_to do |format|
+			format.js
+		end
 	end
 
 	private

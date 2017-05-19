@@ -92,16 +92,26 @@ class Project < ActiveRecord::Base
 		description.split[0...characters].join(' ').html_safe
 	end
 
-	def self.search search, categories
-		if search && categories
-			where 'lower(title) LIKE ? AND category_id in (?)', "%#{search.downcase}%", categories
-		elsif search
-			where 'lower(title) LIKE ?', "%#{search.downcase}%"
-		elsif categories
-			where 'category_id in (?)', categories
+	def self.search_published(options = {})
+		options[:search] = ""
+		if options[:order_rating].present?
+	    return Project.find_by_sql ["SELECT projects.*, (COALESCE((SELECT COUNT(votes.id) FROM votes WHERE votes.status = 0 AND votes.project_id = projects.id AND votes.group = ?) * 100 / NULLIF((SELECT COUNT(votes.id) FROM votes WHERE votes.project_id = projects.id AND votes.group = ?), 0), 0)) AS rating FROM projects WHERE projects.published = TRUE AND projects.category_id IN (?) AND lower(title) LIKE ? ORDER BY rating DESC;", options[:order_rating], options[:order_rating], options[:categories] || Category.all.map { |cat| cat.id }, "%#{options[:search].downcase}%"]
+    end
+
+    @projects = Project.where published: true
+		if options[:search] && options[:categories]
+			@projects.where 'lower(title) LIKE ? AND category_id in (?)', "%#{options[:search].downcase}%", options[:categories]
+		elsif options[:search]
+			@projects.where 'lower(title) LIKE ?', "%#{options[:search].downcase}%"
+		elsif options[:categories]
+			@projects.where 'category_id in (?)', options[:categories]
 		else
 			self
 		end
+	end
+
+	def self.popular
+		return Project.find_by_sql ("SELECT projects.*, (SELECT COUNT(votes.id) FROM votes WHERE votes.project_id = projects.id) AS votes_amount FROM projects WHERE projects.published = TRUE ORDER BY votes_amount DESC")
 	end
 
 	private

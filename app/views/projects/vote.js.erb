@@ -1,2 +1,2 @@
-$("#likes .buttons").remove();
-$(".ratings[data-project-id=<%= @project.id %>").html("<%= render partial: 'ratings', locals: { project: @project } %>");
+$("#rating-buttons").remove();
+$("#ratings").html("<%= escape_javascript(render partial: 'projects/ratings', locals: { project: @project }) %>");

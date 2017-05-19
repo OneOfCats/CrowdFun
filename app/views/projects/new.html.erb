@@ -1,19 +1,43 @@
-<h2>Create new project</h2>
+<div class="grey-back project-page page-padding">
+  <div class="container">
+    <div class="row">
+    	<div class="col-xs-12">
+    		<h2>Create new project</h2>
 
-<%= form_for @project do |f| %>
-	<%= f.label :title %>
-	<%= f.text_field :title %>
-	<%= f.label :description %>
-	<%= f.text_area :description %>
-	<%= f.label :main_picture %>
-	<%= f.text_field :main_picture %>
-	<%= f.label :main_video %>
-	<%= f.text_field :main_video %>
-	<%= f.label :realization_duration, 'Realization duration (days)' %>
-	<%= f.number_field :realization_duration %>
-	<%= f.label :goal, 'Goal amount' %>
-	<%= f.text_field :goal %>
-	<%= f.label :published, 'Publish now' %>
-	<%= f.check_box :published %>
-	<%= f.submit %>
-<% end %>
+				<%= form_for @project do |f| %>
+					<div class="form-block">
+						<%= f.label :title %>
+						<%= f.text_field :title %>
+					</div>
+					<div class="form-block">
+						<%= f.label :description %>
+						<%= f.text_area :description %>
+					</div>
+					<div class="form-block">
+						<%= f.label :main_picture, 'Picture (url)' %>
+						<%= f.text_field :main_picture %>
+					</div>
+					<div class="form-block">
+						<%= f.label :main_video, 'Video (youtube url)' %>
+						<%= f.text_field :main_video %>
+					</div>
+					<div class="form-block">
+						<%= f.label :realization_duration, 'Realization duration (days)' %>
+						<%= f.number_field :realization_duration %>
+					</div>
+					<div class="form-block">
+						<%= f.label :goal, 'Goal amount ($)' %>
+						<%= f.text_field :goal %>
+					</div>
+					<div class="form-block">
+						<%= f.label :published, 'Publish now' %>
+						<%= f.check_box :published %>
+					</div>
+					<div class="form-block">
+						<%= f.submit 'Create', class: 'btn' %>
+					</div>
+				<% end %>
+    	</div>
+    </div>
+  </div>
+</div>

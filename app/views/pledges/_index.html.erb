@@ -1,0 +1,10 @@
+<button type="button" class="close margined" data-dismiss="modal">&times;</button>
+<div id="pledges">
+  <% @project.pledges.each do |p| %>
+    <%= link_to p.user.email, p.user %>
+    <%= number_to_currency p.amount %>
+    <p>
+      <%= p.message %>
+    </p>
+  <% end %>
+</div>

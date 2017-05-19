@@ -88,6 +88,10 @@ class ProjectsController < OwnableController
 		unless @vote.save
 			flash[:notice] = @vote.errors.full_messages.to_sentence
 		end
+
+		respond_to do |format|
+			format.js { render template: 'projects/vote' }
+		end
 	end
 
 	private
