@@ -1,8 +1,26 @@
-<h1>Create an update</h1>
-<%= form_for [@project, @update] do |f| %>
-	<%= f.label :title %>
-	<%= f.text_field :title %>
-	<%= f.label :description %>
-	<%= f.text_area :description %>
-	<%= f.submit 'Publish the update' %>
-<% end %>
+<div class="grey-back project-page page-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h1>Create an update</h1>
+        <%= form_for [@project, @update] do |f| %>
+          <div class="form-block">
+            <%= f.label :title %>
+            <%= f.text_field :title %>
+          </div>
+          <div class="form-block">
+            <%= f.label :description %>
+            <%= f.text_area :description %>
+          </div>
+          <div class="form-block">
+            <%= f.label :main_picture %>
+            <%= f.text_field :main_picture %>
+          </div>
+          <div class="form-block">
+            <%= f.submit 'Publish the update', class: 'btn' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,14 +1,30 @@
-<h2>Edit account info</h2>
+<div class="grey-back project-page page-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2>Edit account info</h2>
 
-<%= form_for @account do |f| %>
-	<%= f.label :card_number %>
-	<%= f.text_field :card_number %>
+        <%= form_for @account do |f| %>
+          <div class="form-block">
+            <%= f.label :card_number %>
+            <%= f.text_field :card_number %>
+          </div>
 
-	<%= f.label :card_holder_first_name %>
-	<%= f.text_field :card_holder_first_name %>
+          <div class="form-block">
+            <%= f.label :card_holder_first_name %>
+            <%= f.text_field :card_holder_first_name %>
+          </div>
 
-	<%= f.label :card_holder_second_name %>
-	<%= f.text_field :card_holder_second_name %>
-
-	<%= f.submit %>
-<% end %>
+          <div class="form-block">
+            <%= f.label :card_holder_second_name %>
+            <%= f.text_field :card_holder_second_name %>
+          </div>
+          
+          <div class="form-block">
+            <%= f.submit 'Submit', class: 'btn' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

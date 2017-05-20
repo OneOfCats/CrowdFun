@@ -11,16 +11,21 @@ class UsersController < ApplicationController
 		@projects = @user.projects.where(published: true)
 		@demand_rating = @user.demand_rating
 		@users_rating = @user.users_rating
-		@resulting_rating = @user.resulting_rating
-		@pledgers_rating = @user.pledgers_rating
+		@result_rating = @user.result_rating
 	end
 
 	def update
+		current_user.update_attributes attributes_for_update
 
+		redirect_to user_root_path
 	end
 
 	private
 	def find_user
 		@user = User.find(params[:id])
+	end
+
+	def attributes_for_update
+		return params.require(:user).permit(:avatar)
 	end
 end

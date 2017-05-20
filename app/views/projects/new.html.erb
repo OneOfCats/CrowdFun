@@ -10,16 +10,20 @@
 						<%= f.text_field :title %>
 					</div>
 					<div class="form-block">
+						<%= f.label :category %>
+						<%= f.select :category_id do %>
+							<% @categories.each do |category| %>
+								<%= content_tag(:option, category.title, value: category.id) %>
+							<% end %>
+						<% end %>
+					</div>
+					<div class="form-block">
 						<%= f.label :description %>
 						<%= f.text_area :description %>
 					</div>
 					<div class="form-block">
 						<%= f.label :main_picture, 'Picture (url)' %>
 						<%= f.text_field :main_picture %>
-					</div>
-					<div class="form-block">
-						<%= f.label :main_video, 'Video (youtube url)' %>
-						<%= f.text_field :main_video %>
 					</div>
 					<div class="form-block">
 						<%= f.label :realization_duration, 'Realization duration (days)' %>
@@ -30,8 +34,8 @@
 						<%= f.text_field :goal %>
 					</div>
 					<div class="form-block">
-						<%= f.label :published, 'Publish now' %>
 						<%= f.check_box :published %>
+						<%= f.label :published, 'Publish now' %>
 					</div>
 					<div class="form-block">
 						<%= f.submit 'Create', class: 'btn' %>

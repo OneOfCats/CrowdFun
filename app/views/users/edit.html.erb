@@ -2,14 +2,14 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <h2>Deposit money to your account</h2>
-        <%= form_tag 'edit_balance', method: :post do |f| %>
+        <h2>Edit user</h2>
+        <%= form_for @user, method: :put do |f| %>
           <div class="form-block">
-          	<%= label_tag :balance, 'Amount ($)' %>
-          	<%= text_field_tag :balance %>
+            <%= f.label :avatar, 'Avatar (url)' %>
+            <%= f.text_field :avatar %>
           </div>
           <div class="form-block">
-          	<%= submit_tag 'Deposit', class: 'btn' %>
+            <%= f.submit 'Submit', class: 'button' %>
           </div>
         <% end %>
       </div>

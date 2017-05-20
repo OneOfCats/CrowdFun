@@ -6,6 +6,7 @@ class ProjectsController < OwnableController
 
 	def new
 		@project = Project.new
+		@categories = Category.all
 	end
 
 	def create
@@ -50,30 +51,6 @@ class ProjectsController < OwnableController
 		redirect_to project_path(@project)
 	end
 
-=begin
-	def like
-		if @project.opened && !@project.funded
-			vote :liked, :users
-		elsif @project.result && @project.pledgers.find(current_user)
-			vote :liked, :pledgers
-		end
-		respond_to do |format|
-			format.js { render 'vote.js.erb' }
-		end
-	end
-
-	def dislike
-		if @project.opened && !@project.funded
-			vote :disliked, :users
-		elsif @project.result && @project.pledgers.find(current_user)
-			vote :disliked, :pledgers
-		end
-		respond_to do |format|
-			format.js { render 'vote.js.erb' }
-		end
-	end
-=end
-
 	def like
 		vote :liked
 	end
@@ -96,7 +73,7 @@ class ProjectsController < OwnableController
 
 	private
 	def project_params
-		params.require(:project).permit(:title, :description, :main_picture, :main_video, :realization_duration, :goal, :published)
+		params.require(:project).permit(:title, :description, :category_id, :main_picture, :main_video, :realization_duration, :goal, :published)
 	end
 
 	def project_edit_params

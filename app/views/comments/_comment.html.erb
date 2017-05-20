@@ -1,6 +1,6 @@
 <div class="comment">
   <%= link_to comment.user, class: 'avatar' do %>
-    <%= image_tag "/images/avatar.jpg" %>
+    <%= image_tag comment.user.avatar %>
   <% end %>
   <% unless local_assigns[:hide_mail] %>
     <%= link_to comment.user do %>

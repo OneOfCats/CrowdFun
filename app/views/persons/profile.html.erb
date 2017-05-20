@@ -3,12 +3,17 @@
     <div class="row">
       <div class="col-sm-6">
         <h2>My profile</h2>
+        <div class="avatar inline-block">
+          <%= image_tag current_user.avatar %>
+        </div><br>
+        <%= current_user.email %><br>
         <div class="margin-bottom">
           Balance: <%= number_to_currency @balance %><br>
         </div>
         
         <%= link_to 'Deposit', new_balance_path, class: 'btn margin-bottom' %><br>
         <%= link_to 'Edit credentials', edit_account_path, class: 'margin-bottom btn-hollow' %><br>
+        <%= link_to 'Edit user', edit_user_path(current_user), class: 'margin-bottom' %><br>
       </div>
       <div class="col-sm-6">
         <div class="project-list">

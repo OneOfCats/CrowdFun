@@ -29,6 +29,6 @@ class UpdatesController < OwnableController
 
 	private
 	def update_params
-		params.require(:update).permit(:title, :description)
+		params.require(:update).permit(:title, :main_picture, :description)
 	end
 end

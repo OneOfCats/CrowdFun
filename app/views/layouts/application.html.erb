@@ -21,19 +21,25 @@
           <div class="ifc">
             <ul>
               <% if user_signed_in? %>
-                  <li><%= current_user.email %></li>
-                  <li><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %></li>
-                  <li><%= link_to 'Personal page', user_root_url %></li>
+                <li><%= current_user.email %></li>
+                <li><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %></li>
+                <li><%= link_to 'Personal page', user_root_url %></li>
               <% else %>
-                  <%= link_to 'Sign In', new_user_session_path %> or <%= link_to 'Sign Up', new_user_registration_path %>
+                <%= link_to 'Sign In', new_user_session_path %> or <%= link_to 'Sign Up', new_user_registration_path %>
               <% end %>
             </ul>
           </div>
         </div>
       </div>
     </div>
-    <%= notice %>
-    <%= alert %>
+    <div class="container margin-bottom-sm">
+      <div class="row">
+        <div class="col-xs-12">
+          <%= notice %>
+          <%= alert %>
+        </div>
+      </div>
+    </div>
     <%= yield %>
     <div class="push-footer"></div>
   </div>
