@@ -80,6 +80,10 @@ html, body{
 body *{
   color: #5c5c5c;
 }
+img{
+  max-width: 100%;
+  max-height: 100%;
+}
 
 .top-bar{
   padding: 25px 0 22px;
@@ -924,11 +928,222 @@ h1{
   height: 25px;
   border-radius: 15px;
   overflow: hidden;
+  display: inline-block;
+  line-height: 25px;
+}
+.avatar-small img{
+  width: 25px;
+  height: 25px;
 }
 
 .ifc .avatar-small{
   float: right;
   margin-top: -2px;
+}
+
+#mobile-menu .avatar-small{
+  height: 27px;
+  width: 27px;
+}
+
+#mobile-menu .avatar-small img{
+  height: 27px;
+  width: 27px;
+}
+
+.c-hamburger {
+  position: relative;
+  float: right;
+  overflow: hidden;
+  padding: 0;
+  width: 20px;
+  height: 18px;
+  font-size: 0;
+  text-indent: -9999px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+  background: none;
+  margin-top: 10px;
+  display: none;
+}
+.c-hamburger:focus {
+  outline: none;
+}
+.c-hamburger span {
+  display: block;
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background: #5c5c5c;
+  margin: 0;
+}
+.c-hamburger span::before,
+.c-hamburger span::after {
+  position: absolute;
+  display: block;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #5c5c5c;
+  content: "";
+}
+
+.c-hamburger span::before {
+  top: -6px;
+}
+
+.c-hamburger span::after {
+  bottom: -6px;
+}
+
+.c-hamburger--htx span {
+  transition: background 0s 0.3s;
+}
+
+.c-hamburger--htx span::before,
+.c-hamburger--htx span::after {
+  transition-duration: 0.3s, 0.3s;
+  transition-delay: 0.3s, 0s;
+}
+
+.c-hamburger--htx span::before {
+  transition-property: top, transform;
+}
+
+.c-hamburger--htx span::after {
+  transition-property: bottom, transform;
+}
+
+/* active state, i.e. menu open */
+
+.c-hamburger--htx.is-active span {
+  background: none;
+}
+
+.c-hamburger--htx.is-active span::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.c-hamburger--htx.is-active span::after {
+  bottom: 0;
+  transform: rotate(-45deg);
+}
+
+.c-hamburger--htx.is-active span::before,
+.c-hamburger--htx.is-active span::after {
+  transition-delay: 0s, 0.3s;
+}
+
+#home-mobile{
+  float: left;
+  display: none;
+}
+
+#mobile-menu{
+  position: fixed;
+  top: 40px;
+  right: 0;
+  width: 75%;
+  background: white;
+  text-align: center;
+  display: none;
+  padding-bottom: 10px;
+  z-index: 2;
+}
+#mobile-menu a{
+  display: block;
+  margin: 0 auto;
+  color: #5c5c5c;
+}
+
+@media (min-width: 1200px) {
+
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+  .menu li a{
+    font-size: 17px;
+    margin-left: 18px;
+  }
+  .top-bar .ifc li{
+    margin-right: 10px;
+  }
+  .top-bar .ifc{
+    margin-top: 2px;
+  }
+  #header-email{
+    display: none;
+  }
+  .progress .info > div{
+    width: 27%;
+  }
+  .vertical-block{
+    padding-top: 20px;
+  }
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+  .c-hamburger{
+    display: block;
+  }
+  .top-bar .menu, .top-bar .ifc{
+    display: none;
+  }
+  #home-mobile{
+    display: block;
+    font-size: 20px;
+    color: #5c5c5c;
+  }
+  .top-bar{
+    padding: 0;
+    height: 40px;
+    line-height: 40px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    background: white;
+  }
+  body{
+    padding-top: 40px;
+  }
+  .huge-block-row .photo, .huge-block-row .content{
+    display: block;
+    float: none;
+    width: auto;
+  }
+  .progress .info > div{
+    width: 30%;
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .rating-block{
+    margin-bottom: 20px;
+  }
+  .rating-block:last-child{
+    margin-bottom: 0;
+  }
+  .project-header{
+    padding-top: 0;
+  }
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+
 }
 
 @media(max-width:991px){
