@@ -14,7 +14,7 @@ Category.delete_all
 
 admins = []
 5.times do |i|
-  admins << User.new(email: "admin#{i}@mail.ua", password: 'valid_password', admin: true)
+  admins << User.new(email: "admin#{i}@mail.ua", password: 'valid_password', admin: true, avatar: "admin#{i}-avatar.jpg")
 end
 admins.each do |admin|
   admin.save
@@ -22,7 +22,7 @@ end
 
 users = []
 10.times do |i|
-  users << User.create(email: "user#{i}@mail.ua", password: 'valid_password')
+  users << User.create(email: "user#{i}@mail.ua", password: 'valid_password', avatar: "user#{i}-avatar.jpg")
 end
 users.each do |user|
   user.save
