@@ -25,6 +25,11 @@
           <div class="ifc">
             <ul>
               <% if user_signed_in? %>
+                <li>
+                  <%= link_to user_root_url, class: 'avatar-small' do %>
+                    <%= image_tag current_user.avatar %>
+                  <% end %>
+                </li>
                 <li><%= current_user.email %></li>
                 <li><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %></li>
                 <li><%= link_to 'Personal page', user_root_url %></li>

@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
   has_many :comments, as: :commentable
   has_many :commented_on, class_name: 'Comment'
   has_many :projects
@@ -78,6 +78,14 @@ class User < ActiveRecord::Base
       when 68..80 then rating = 75
       when 81..94 then rating = 88
       when 95..100 then rating = 100
+    end
+  end
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+      user.avatar = auth.info.image
     end
   end
 

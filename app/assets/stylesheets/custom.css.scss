@@ -901,6 +901,36 @@ h1{
   color: #acd373;
 }
 
+#omni_Facebook{
+  padding: 7px 26px;
+  font-size: 19px;
+  text-align: center;
+  background: white;
+  display: inline-block;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 3px solid #3b5998;
+  background: #3b5998;
+  color: white;
+  text-decoration: none;
+}
+#omni_Facebook:hover, #omni_Facebook:active{
+  background: #8b9dc3;
+  border: 3px solid #8b9dc3;
+}
+
+.avatar-small{
+  width: 25px;
+  height: 25px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.ifc .avatar-small{
+  float: right;
+  margin-top: -2px;
+}
+
 @media(max-width:991px){
   .project-info .pic{
     text-align: center;
