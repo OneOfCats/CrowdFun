@@ -10,8 +10,10 @@ class UsersController < ApplicationController
 		@comments = @user.comments
 		@projects = @user.projects.where(published: true)
 		@demand_rating = @user.demand_rating
-		@users_rating = @user.users_rating
-		@result_rating = @user.result_rating
+		@preview_rating = @user.preview_rating
+		@resulting_rating = @user.resulting_rating
+		@satisfaction_rating = @user.satisfaction_rating
+		@admins_rating = @user.admins_rating
 	end
 
 	def update

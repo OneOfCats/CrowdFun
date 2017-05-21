@@ -21,7 +21,7 @@ class ProjectsController < OwnableController
 		else
 			@voted = true
 		end
-		@users_rating = @project.users_rating
+		@preview_rating = @project.preview_rating
 		@admins_rating = @project.admins_rating
 		@result_rating = @project.result_rating
 	end

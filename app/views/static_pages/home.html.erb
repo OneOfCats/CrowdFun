@@ -34,7 +34,7 @@
           </div>
           <div class="row">
             <div class="col-xs-12">
-              <a href="" class="btn-hollow">See All</a>
+              <%= link_to 'See all', search_path(order_by: 'popularity', search: ''), class: 'btn-hollow' %>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@
           </div>
           <div class="row">
             <div class="col-xs-12">
-              <a href="" class="btn">See All</a>
+              <%= link_to 'See all', search_path(result_present: true, search: ''), class: 'btn' %>
             </div>
           </div>
         </div>

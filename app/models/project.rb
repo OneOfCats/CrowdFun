@@ -36,8 +36,8 @@ class Project < ActiveRecord::Base
 		user.id == id
 	end
 
-	def users_rating
-		get_rating :users
+	def preview_rating
+		get_rating :preview
 	end
 
 	def admins_rating
@@ -45,7 +45,7 @@ class Project < ActiveRecord::Base
 	end
 
 	def result_rating
-		get_rating :pledgers
+		get_rating :result
 	end
 
 	def get_rating group
@@ -93,21 +93,35 @@ class Project < ActiveRecord::Base
 	end
 
 	def self.search_published(options = {})
-		options[:search] = ""
-		if options[:order_rating].present?
-	    return Project.find_by_sql ["SELECT projects.*, (COALESCE((SELECT COUNT(votes.id) FROM votes WHERE votes.status = 0 AND votes.project_id = projects.id AND votes.group = ?) * 100 / NULLIF((SELECT COUNT(votes.id) FROM votes WHERE votes.project_id = projects.id AND votes.group = ?), 0), 0)) AS rating FROM projects WHERE projects.published = TRUE AND projects.category_id IN (?) AND lower(title) LIKE ? ORDER BY rating DESC;", options[:order_rating], options[:order_rating], options[:categories] || Category.all.map { |cat| cat.id }, "%#{options[:search].downcase}%"]
+		if options[:result_present] == "true" && options[:result_unpresent].nil?
+			options[:result] = true
+		elsif options[:result_unpresent] == "true" && options[:result_present].nil?
+			options[:result] = false
+		end
+
+		if options[:order_rating].present? && options[:order_rating] != 'popularity'
+	    return Project.find_by_sql ["SELECT projects.*, (COALESCE((SELECT COUNT(votes.id) FROM votes WHERE votes.status = 0 AND votes.project_id = projects.id AND votes.group = ?) * 100 / NULLIF((SELECT COUNT(votes.id) FROM votes WHERE votes.project_id = projects.id AND votes.group = ?), 0), 0)) AS rating FROM projects WHERE projects.published = TRUE AND projects.category_id IN (?) AND lower(title) LIKE ? #{result_query_part(options[:result])} ORDER BY rating DESC;", options[:order_rating], options[:order_rating], options[:categories] || Category.all.map { |cat| cat.id }, "%#{options[:search].downcase}%"]
+    end
+    if options[:order_rating] == 'popularity'
+    	return Project.find_by_sql ["SELECT projects.*, (SELECT COUNT(votes.id) FROM votes WHERE votes.project_id = projects.id) AS popularity FROM projects WHERE projects.published = TRUE AND projects.category_id IN (?) AND lower(title) LIKE ? #{result_query_part(options[:result])} ORDER BY popularity DESC;", options[:categories] || Category.all.map { |cat| cat.id }, "%#{options[:search].downcase}%"]
     end
 
     @projects = Project.where published: true
 		if options[:search] && options[:categories]
-			@projects.where 'lower(title) LIKE ? AND category_id in (?)', "%#{options[:search].downcase}%", options[:categories]
+			@projects.where 'lower(title) LIKE ? AND category_id in (?)' + result_query_part(options[:result]), "%#{options[:search].downcase}%", options[:categories]
 		elsif options[:search]
-			@projects.where 'lower(title) LIKE ?', "%#{options[:search].downcase}%"
+			@projects.where 'lower(title) LIKE ?' + result_query_part(options[:result]), "%#{options[:search].downcase}%"
 		elsif options[:categories]
-			@projects.where 'category_id in (?)', options[:categories]
+			@projects.where 'category_id in (?)' + result_query_part(options[:result]), options[:categories]
 		else
 			self
 		end
+	end
+
+	def self.result_query_part bool
+		return " AND projects.result IS NOT NULL" if bool == true
+		return " AND projects.result IS NULL" if bool == false
+		return ""
 	end
 
 	def self.popular

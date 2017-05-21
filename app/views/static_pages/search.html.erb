@@ -28,7 +28,7 @@
                     <ul>
                       <li>
                         <%= radio_button_tag 'order_by', '0' %>
-                        <%= label_tag 'order_by_0', 'users rating' %>
+                        <%= label_tag 'order_by_0', 'preview rating' %>
                       </li>
                       <li>
                         <%= radio_button_tag 'order_by', '1' %>
@@ -37,6 +37,25 @@
                       <li>
                         <%= radio_button_tag 'order_by', '2' %>
                         <%= label_tag 'order_by_2', 'result rating' %>
+                      </li>
+                      <li>
+                        <%= radio_button_tag 'order_by', 'popularity' %>
+                        <%= label_tag 'order_by_popularity', 'popularity' %>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-sm-4 col-md-3 col-lg-2">
+                  <div id="ratings-result">
+                    <h5>Result</h5>
+                    <ul>
+                      <li>
+                          <%= check_box_tag 'result_present', true, false, id: 'result_present' %>
+                          <%= label_tag 'result_present', 'present' %>
+                      </li>
+                      <li>
+                          <%= check_box_tag 'result_unpresent', true, false, id: 'result_unpresent' %>
+                          <%= label_tag 'result_unpresent', 'unpresent' %>
                       </li>
                     </ul>
                   </div>
@@ -55,3 +74,5 @@
     <%= will_paginate @projects %>
   </div>
 </div>
+
+<%= render partial: 'search_link_parse' %>

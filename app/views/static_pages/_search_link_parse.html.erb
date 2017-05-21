@@ -1,0 +1,9 @@
+<script>
+  var url = window.location.href;
+  if (url.indexOf('result_present') !== -1){
+    $("#result_present").prop('checked', true);
+  }
+  if (url.indexOf('order_by') !== -1){
+    $("#order_by_popularity").prop('checked', true);
+  }
+</script>

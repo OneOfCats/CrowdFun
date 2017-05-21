@@ -22,47 +22,70 @@ class User < ActiveRecord::Base
     admin
   end
 
+  #Рейтинг востребованности: как много из опубликованных проектов собрали нужную сумму
   def demand_rating
-    all = projects.where('(published=? AND opened=?) OR funded=?', true, false, true)
-    negative = all.where(funded: false)
-    puts all.inspect
-    puts negative.inspect
-    count_rating all, negative
+    all = projects.where(published: true)
+    positive = all.where(funded: true)
+    count_rating all, positive
   end
 
+  #Как много проектов выполнено с результатом
   def resulting_rating
-    all = projects.where(funded: true)
-    negative = all.where(result: nil)
-    count_rating all, negative
+    all = projects.where(published: true)
+    positive = all.where('result IS NOT NULL')
+    count_rating all, positive
   end
 
-  def users_rating
-    all = Vote.where("project_id in (?)", projects.map { |project| project.id}).users
-    negative = all.disliked
-    count_rating all, negative
+  #Рейтинг первой стадии проекта (когда он ещё не собрал деньги, лайкать могут все)
+  def preview_rating
+    all = Vote.where("project_id in (?)", projects.map { |project| project.id}).preview
+    positive = all.liked
+    count_rating all, positive
   end
 
-  def result_rating
+  #Как оценивают результаты проектов
+  def satisfaction_rating
     all = Vote.where("project_id in (?)", projects.map { |project| project.id}).result
-    negative = all.disliked
-    count_rating all, negative
+    positive = all.liked
+    count_rating all, positive
+  end
+
+  #Одобрение администрации
+  def admins_rating
+    all = Vote.where("project_id in (?)", projects.map { |project| project.id}).admins
+    positive = all.liked
+    count_rating all, positive
   end
 
   def voted? project
     if project.user == self
       true
     elsif project.result?
-      project.votes.where(user: self).pledgers.first
+      project.votes.where(user: self).result.first
     else
-      project.votes.where(user: self).users.first
+      project.votes.where(user: self).preview.first
+    end
+  end
+
+  def self.round_dating rating
+    case rating
+      when 0..6 then rating = 0
+      when 6..18 then rating = 12
+      when 19..31 then rating = 25
+      when 31..43 then rating = 38
+      when 44..56 then rating = 50
+      when 51..67 then rating = 62
+      when 68..80 then rating = 75
+      when 81..94 then rating = 88
+      when 95..100 then rating = 100
     end
   end
 
   private
 
-  def count_rating(all, negative)
+  def count_rating(all, positive)
     unless all.count == 0
-      return 100 - (negative.count.to_f / all.count.to_f) * 100
+      return 100 * positive.count.to_f / all.count.to_f
     end
     return 0
   end

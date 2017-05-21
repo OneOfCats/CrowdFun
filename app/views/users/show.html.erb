@@ -1,47 +1,95 @@
 <div class="grey-back project-page page-padding">
   <div class="container">
     <div class="row">
+      <div class="col-xs-12">
+        <h2>User's page</h2>
+      </div>
       <div class="col-sm-6">
-        <div class="avatar inline-block">
-          <%= image_tag @user.avatar %>
-        </div><br>
-        <%= mail_to @user.email %>
-
-        <% if project.result? %>
-          <div class="rating-block">
-            <div class="rating-circle">
-              <%= image_tag "rating_#{project.get_rounded_rating :pledgers}.png" %>
-              <div class="percents">
-                <%= project.result_rating.round %>%
+        <div class="text-center margin-bottom">
+          <div class="avatar inline-block margin-bottom-sm">
+            <%= image_tag @user.avatar %>
+          </div><br>
+          <%= mail_to @user.email %>
+        </div>
+        <div class="ratings">
+          <% if @preview_rating.present? %>
+            <div class="rating-block margin-bottom">
+              <div class="rating-circle">
+                <%= image_tag "rating_#{User.round_dating @preview_rating}.png" %>
+                <div class="percents">
+                  <%= @preview_rating.round %>%
+                </div>
               </div>
+              Previews rating
             </div>
-            Result rating
+          <% end %>
+          <% if @demand_rating.present? %>
+            <div class="rating-block margin-bottom">
+              <div class="rating-circle">
+                <%= image_tag "rating_#{User.round_dating @demand_rating}.png" %>
+                <div class="percents">
+                  <%= @demand_rating.round %>%
+                </div>
+              </div>
+              Demand rating
+            </div>
+          <% end %>
+          <% if @resulting_rating.present? %>
+            <div class="rating-block margin-bottom">
+              <div class="rating-circle">
+                <%= image_tag "rating_#{User.round_dating @resulting_rating}.png" %>
+                <div class="percents">
+                  <%= @resulting_rating.round %>%
+                </div>
+              </div>
+              Resulting rating
+            </div>
+          <% end %>
+          <% if @admins_rating.present? %>
+            <div class="rating-block margin-bottom">
+              <div class="rating-circle">
+                <%= image_tag "rating_#{User.round_dating @admins_rating}.png" %>
+                <div class="percents">
+                  <%= @admins_rating.round %>%
+                </div>
+              </div>
+              Admins rating
+            </div>
+          <% end %>
+          <% if @satisfaction_rating.present? %>
+            <div class="rating-block margin-bottom">
+              <div class="rating-circle">
+                <%= image_tag "rating_#{User.round_dating @satisfaction_rating}.png" %>
+                <div class="percents">
+                  <%= @satisfaction_rating.round %>%
+                </div>
+              </div>
+              Satisfaction rating
+            </div>
+          <% end %>
+        </div>
+        <% if @projects.count > 0 %>
+          <div class="project-list">
+            <% @projects.each do |p| %>
+              <div class="project">
+                <h3><%= link_to p.title, p %></h3>
+                <%= image_tag p.main_picture %>
+              </div>
+            <% end %>
           </div>
         <% end %>
       </div>
       <div class="col-sm-6">
-        <h3>Projects:</h3>
-        <% @projects.each do |p| %>
-        	<%= link_to p.title, p %>
-        <% end %>
-
-        <h4>Ratings:</h4>
-        <span>Пользовательский рейтинг проектов: </span> <%= @users_rating.round %>%<br>
-        <span>Рейтинг востребованности проектов: </span> <%= @demand_rating.round %>%<br>
-        <span>Рейтинг результативности проектов: </span> <%= @result_rating.round %>%<br>
-
-        <h3>Comments:</h3>
-        <%= render partial: 'comments/comments', locals: {comments: @comments} %>
-
-        <h3>His comments:</h3>
-        <%= render partial: 'comments/comments', locals: {comments: @own_comments, show_direction: true, hide_mail: true} %>
 
         <% if current_user %>
-        	<h3>Leave a comment:</h3>
-        	<%= render partial: 'comments/form', locals: {commentable_type: controller_name.classify, commentable_id: @user.id} %>
+          <h3>Write a comment on this user's page</h3>
+          <%= render partial: 'comments/form', locals: {commentable_type: controller_name.classify, commentable_id: @user.id} %>
         <% else %>
-        	<h2>Login to leave a comment</h2>
+          <h2>Login to leave a comment</h2>
         <% end %>
+
+        <h3>Comments of this page:</h3>
+        <%= render partial: 'comments/comments', locals: {comments: @comments} %>
       </div>
     </div>
   </div>

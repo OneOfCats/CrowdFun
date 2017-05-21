@@ -1,12 +1,12 @@
 <div class="ratings" data-project-id="<%= project.id %>">
   <div class="rating-block">
     <div class="rating-circle">
-      <%= image_tag "rating_#{project.get_rounded_rating :users}.png" %>
+      <%= image_tag "rating_#{project.get_rounded_rating :preview}.png" %>
       <div class="percents">
-        <%= project.users_rating.round %>%
+        <%= project.preview_rating.round %>%
       </div>
     </div>
-    Users rating
+    Preview rating
   </div>
   <div class="rating-block">
     <div class="rating-circle">
@@ -20,7 +20,7 @@
   <% if project.result? %>
     <div class="rating-block">
       <div class="rating-circle">
-        <%= image_tag "rating_#{project.get_rounded_rating :pledgers}.png" %>
+        <%= image_tag "rating_#{project.get_rounded_rating :result}.png" %>
         <div class="percents">
           <%= project.result_rating.round %>%
         </div>

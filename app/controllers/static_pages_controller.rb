@@ -2,10 +2,10 @@ class StaticPagesController < ApplicationController
   require 'will_paginate/array'
 
   def home
-    @projects_top_admins = Project.search_published order_rating: 1
+    @projects_top_admins = Project.search_published order_rating: 1, search: ''
     @project_main = @projects_top_admins[0..2][rand(3)]
     
-    @projects_top_users = Project.search_published order_rating: 0
+    @projects_top_users = Project.search_published order_rating: 0, search: ''
     @project_users_top_one = @projects_top_users[0..2][rand(3)]
     
     @projects_popular = Project.popular
@@ -15,7 +15,7 @@ class StaticPagesController < ApplicationController
   end
 
   def search
-    @projects = Project.search_published search: params[:search], categories: params[:categories], order_rating: params[:order_by]
+    @projects = Project.search_published search: params[:search], categories: params[:categories], order_rating: params[:order_by], result_present: params[:result_present], result_unpresent: params[:result_unpresent]
     @projects = @projects.paginate per_page: 9, page: params[:page]
 
     respond_to do |format|

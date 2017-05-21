@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   get 'search' => 'static_pages#search', as: :search
   get 'about' => 'static_pages#about', as: :about
+  get 'help' => 'static_pages#help', as: :help
 
   root 'static_pages#home'
 
