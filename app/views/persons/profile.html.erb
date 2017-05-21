@@ -7,32 +7,36 @@
           <%= image_tag current_user.avatar %>
         </div><br>
         <%= current_user.email %><br>
-        <div class="margin-bottom">
-          Balance: <%= number_to_currency @balance %><br>
-        </div>
-        
-        <%= link_to 'Deposit', new_balance_path, class: 'btn margin-bottom' %><br>
+        <% if current_user.present? && !current_user.admin? %>
+          <div class="margin-bottom">
+            Balance: <%= number_to_currency @balance %><br>
+          </div>
+          
+          <%= link_to 'Deposit', new_balance_path, class: 'btn margin-bottom' %><br>
+        <% end %>
         <%= link_to 'Edit credentials', edit_account_path, class: 'margin-bottom btn-hollow' %><br>
         <%= link_to 'Edit user', edit_user_path(current_user), class: 'margin-bottom' %><br>
       </div>
-      <div class="col-sm-6">
-        <div class="project-list">
-          <h2>My projects</h2>
-          <%= link_to 'Create a project', new_project_path, class: 'btn margin-bottom' %>
-          <% if @projects.count > 0 %>
-            <div class="projects">
-              <% @projects.each do |p| %>
-                <div class="project">
-                  <h3><%= link_to p.title, p %></h3>
-                  <%= image_tag p.main_picture %>
-                </div>
-              <% end %>
-            </div>
-          <% else %>
-            <h3>You don't have any projects yet</h3>
-          <% end %>
+      <% if current_user.present? && !current_user.admin? %>
+        <div class="col-sm-6">
+          <div class="project-list">
+            <h2>My projects</h2>
+            <%= link_to 'Create a project', new_project_path, class: 'btn margin-bottom' %>
+            <% if @projects.count > 0 %>
+              <div class="projects">
+                <% @projects.each do |p| %>
+                  <div class="project">
+                    <h3><%= link_to p.title, p %></h3>
+                    <%= image_tag p.main_picture %>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <h3>You don't have any projects yet</h3>
+            <% end %>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>

@@ -150,23 +150,28 @@ body *{
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
   color: white;
 }
-.btn{
+.btn, a.btn{
   display: inline-block;
   color: white;
   text-decoration: none;
   text-align: center;
   background: #acd373;
-    padding: 10px 26px 10px;
+  padding: 10px 26px 10px;
   border-radius: 8px;
   font-size: 19px;
 }
 input.btn{
   border: none;
 }
-.btn:hover{
+.btn:hover, a.btn:hover{
   background: #9dbf69;
   text-decoration: none;
   color: white;
+}
+.btn:active, a.btn:active{
+  background: #acd373;
+  color: white;
+  text-decoration: none;
 }
 .main-back .btn{
   padding: 19px 29px 17px;
@@ -185,8 +190,9 @@ h3{
   font-size: 24px;
   color: #5c5c5c;
 }
-h3 a{
+h3 a, h3 a:link{
   color: #5c5c5c;
+  text-decoration: none;
 }
 
 .huge-block{
@@ -884,6 +890,15 @@ h1{
 
 #result{
   margin-top: 20px;
+}
+
+#notices{
+  position: absolute;
+  color: #acd373;
+  margin-top: 15px;
+}
+#notices .row *{
+  color: #acd373;
 }
 
 @media(max-width:991px){

@@ -15,7 +15,11 @@
             <ul>
               <li><%= link_to 'Home', root_url %></li>
               <li><%= link_to 'Browse projects', search_url %></li>
-              <li><%= link_to 'Start a project', user_signed_in? ? new_project_path : new_user_session_path %></li>
+              <% if current_user.present? && current_user.admin? %>
+                <li><%= link_to 'Admin', admin_root_url %></li>
+              <% else %>
+                <li><%= link_to 'Start a project', user_signed_in? ? new_project_path : new_user_session_path %></li>
+              <% end %>
             </ul>
           </div>
           <div class="ifc">
@@ -32,7 +36,7 @@
         </div>
       </div>
     </div>
-    <div class="container margin-bottom-sm">
+    <div class="container" id="notices">
       <div class="row">
         <div class="col-xs-12">
           <%= notice %>
