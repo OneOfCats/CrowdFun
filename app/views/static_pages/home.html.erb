@@ -1,27 +1,31 @@
-<div class="main-back" style="background-image:url(<%= @project_main.main_picture %>)">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="text white">
-          <div>
+<% if @project_main.present? %>
+  <div class="main-back" style="background-image:url(<%= @project_main.main_picture %>)">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="text white">
             <div>
-              <%= @project_main.title %>
+              <div>
+                <%= @project_main.title %>
+              </div>
             </div>
           </div>
+          <%= link_to 'See more', project_path(@project_main), class: 'btn' %>
         </div>
-        <%= link_to 'See more', project_path(@project_main), class: 'btn' %>
       </div>
     </div>
   </div>
-</div>
+<% end %>
 <div class="main">
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <div class="huge-block">
-          <h3><a href="">Loved by users</a></h3>
-          <%= render partial: 'projects/huge_block', collection: [@project_users_top_one] %>
-        </div>
+        <% if @project_users_top_one.present? %>
+          <div class="huge-block">
+            <h3><a href="">Loved by users</a></h3>
+            <%= render partial: 'projects/huge_block', collection: [@project_users_top_one] %>
+          </div>
+        <% end %>
       </div>
     </div>
 
@@ -29,9 +33,11 @@
       <div class="col-xs-12">
         <div class="blocks-line">
           <h3><a href="">Popular</a></h3>
-          <div class="row">
-            <%= render partial: 'projects/vertical_block', collection: @projects_popular_random %>
-          </div>
+          <% if @projects_popular_random.present? %>
+            <div class="row">
+              <%= render partial: 'projects/vertical_block', collection: @projects_popular_random %>
+            </div>
+          <% end %>
           <div class="row">
             <div class="col-xs-12">
               <%= link_to 'See all', search_path(order_by: 'popularity', search: ''), class: 'btn-hollow' %>
@@ -45,9 +51,11 @@
       <div class="col-xs-12">
         <div class="blocks-line">
           <h3><a href="">Watch finished projects</a></h3>
-          <div class="row">
-            <%= render partial: 'projects/vertical_block', collection: @projects_finished, locals: { minified: true } %>
-          </div>
+          <% if @projects_finished.present? && @projects_finished.count > 0 %>
+            <div class="row">
+              <%= render partial: 'projects/vertical_block', collection: @projects_finished, locals: { minified: true } %>
+            </div>
+          <% end %>
           <div class="row">
             <div class="col-xs-12">
               <%= link_to 'See all', search_path(result_present: true, search: ''), class: 'btn' %>

@@ -3,13 +3,13 @@ class StaticPagesController < ApplicationController
 
   def home
     @projects_top_admins = Project.search_published order_rating: 1, search: ''
-    @project_main = @projects_top_admins[0..2][rand(3)]
+    @project_main = @projects_top_admins[0..2][rand(3)] if @projects_top_admins.size > 0
     
     @projects_top_users = Project.search_published order_rating: 0, search: ''
-    @project_users_top_one = @projects_top_users[0..2][rand(3)]
+    @project_users_top_one = @projects_top_users[0..2][rand(3)] if @projects_top_users.size > 0
     
     @projects_popular = Project.popular
-    @projects_popular_random = @projects_popular[0..3].sort_by { rand }.first(3)
+    @projects_popular_random = @projects_popular[0..3].sort_by { rand }.first(3) if @projects_popular.size > 0
 
     @projects_finished = Project.where.not(result: nil).first(2)
   end
