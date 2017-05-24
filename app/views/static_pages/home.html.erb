@@ -22,7 +22,7 @@
       <div class="col-xs-12">
         <% if @project_users_top_one.present? %>
           <div class="huge-block">
-            <h3><a href="">Loved by users</a></h3>
+            <h3>Loved by users</h3>
             <%= render partial: 'projects/huge_block', collection: [@project_users_top_one] %>
           </div>
         <% end %>
@@ -32,7 +32,7 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="blocks-line">
-          <h3><a href="">Popular</a></h3>
+          <h3><%= link_to 'Popular', search_path(order_by: 'popularity', search: '') %></h3>
           <% if @projects_popular_random.present? %>
             <div class="row">
               <%= render partial: 'projects/vertical_block', collection: @projects_popular_random %>
@@ -50,7 +50,7 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="blocks-line">
-          <h3><a href="">Watch finished projects</a></h3>
+          <h3><%= link_to 'Watch finished projects', search_path(result_present: true, search: '') %></a></h3>
           <% if @projects_finished.present? && @projects_finished.count > 0 %>
             <div class="row">
               <%= render partial: 'projects/vertical_block', collection: @projects_finished, locals: { minified: true } %>
