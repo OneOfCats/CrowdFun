@@ -57,6 +57,13 @@ class User < ActiveRecord::Base
     count_rating all, positive
   end
 
+  #Одобрение спонсоров
+  def sponsors_rating
+    all = Vote.where("project_id in (?)", projects.map { |project| project.id}).sponsors
+    positive = all.liked
+    count_rating all, positive
+  end
+
   def voted? project
     if project.user == self
       true

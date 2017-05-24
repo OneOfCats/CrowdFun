@@ -14,6 +14,7 @@ class UsersController < ApplicationController
 		@resulting_rating = @user.resulting_rating
 		@satisfaction_rating = @user.satisfaction_rating
 		@admins_rating = @user.admins_rating
+		@sponsors_rating = @user.sponsors_rating
 	end
 
 	def update

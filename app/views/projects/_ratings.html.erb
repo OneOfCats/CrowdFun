@@ -28,4 +28,15 @@
       Result rating
     </div>
   <% end %>
+  <% if project.result? %>
+    <div class="rating-block">
+      <div class="rating-circle">
+        <%= image_tag "rating_#{project.get_rounded_rating :sponsors}.png" %>
+        <div class="percents">
+          <%= project.sponsors_rating.round %>%
+        </div>
+      </div>
+      Sponsors rating
+    </div>
+  <% end %>
 </div>

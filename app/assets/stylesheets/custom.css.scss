@@ -295,7 +295,7 @@ h4 a{
 }
 .rating-block{
   display: inline-block;
-  width: 127px;
+  width: 86px;
   text-align: center;
   color: #5d5d5d;
   vertical-align: top;
@@ -391,7 +391,7 @@ h4 a{
   line-height: 22px;
 }
 .vertical-block .rating-block{
-  width: 30%;
+  width: 23%;
 }
 
 .btn-hollow{
@@ -1067,7 +1067,9 @@ h1{
 
 /* Landscape tablets and medium desktops */
 @media (min-width: 992px) and (max-width: 1199px) {
-
+  .rating-block{
+    width: 77px;
+  }
 }
 
 /* Portrait tablets and small desktops */

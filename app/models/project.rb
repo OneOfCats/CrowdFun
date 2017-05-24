@@ -48,6 +48,10 @@ class Project < ActiveRecord::Base
 		get_rating :result
 	end
 
+	def sponsors_rating
+		get_rating :sponsors
+	end
+
 	def get_rating group
 		positive = votes.liked.where(group: Vote.groups[group])
 		all = votes.where(group: Vote.groups[group])

@@ -67,6 +67,17 @@
               Satisfaction rating
             </div>
           <% end %>
+          <% if @sponsors_rating.present? %>
+            <div class="rating-block margin-bottom">
+              <div class="rating-circle">
+                <%= image_tag "rating_#{User.round_dating @sponsors_rating}.png" %>
+                <div class="percents">
+                  <%= @sponsors_rating.round %>%
+                </div>
+              </div>
+              Sponsors rating
+            </div>
+          <% end %>
         </div>
         <% if @projects.count > 0 %>
           <div class="project-list">

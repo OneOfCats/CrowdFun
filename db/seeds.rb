@@ -13,7 +13,7 @@ Pledge.delete_all
 Category.delete_all
 
 admins = []
-5.times do |i|
+6.times do |i|
   admins << User.new(email: "admin#{i}@mail.ua", password: 'valid_password', admin: true, avatar: "admin#{i}-avatar.jpg")
 end
 admins.each do |admin|
@@ -87,22 +87,8 @@ end
 (8..9).each do |i|
   projects[4].votes.create user: users[i], status: Vote.statuses[:disliked]
 end
-(3..7).each do |i|
-  projects[5].votes.create user: users[i]
-end
 (2..4).each do |i|
   projects[6].votes.create user: admins[i], status: Vote.statuses[:disliked], group: Vote.groups[:admins]
-end
-(1..4).each do |i|
-  projects[7].votes.create user: admins[i], group: Vote.groups[:admins]
-  projects[7].votes.create user: users[i]
-end
-(5..9).each do |i|
-  projects[8].votes.create user: users[i]
-end
-(1..4).each do |i|
-  projects[8].votes.create user: users[i], status: Vote.statuses[:disliked]
-  projects[8].votes.create user: admins[i], group: Vote.groups[:admins]
 end
 (1..2).each do |i|
   projects[9].votes.create user: users[i], status: Vote.statuses[:disliked]
@@ -149,7 +135,24 @@ end
   projects[8].pledges.create user: users[i], amount: (10 * i), visible: true, message: BetterLorem.w(30, true)
 end
 
-
 (0..3).each do |i|
   projects[9].pledges.create user: users[i], amount: (10 * i), visible: true, message: BetterLorem.w(30, true)
+end
+
+(5..9).each do |i|
+  projects[8].votes.create user: users[i]
+end
+
+(1..5).each do |i|
+  projects[8].votes.create user: users[i], status: Vote.statuses[:disliked]
+  projects[8].votes.create user: admins[i]
+end
+
+(1..4).each do |i|
+  projects[7].votes.create user: admins[i]
+  projects[7].votes.create user: users[i]
+end
+
+(3..7).each do |i|
+  projects[5].votes.create user: users[i]
 end
