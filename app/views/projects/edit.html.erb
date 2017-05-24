@@ -33,8 +33,16 @@
 					<% end %>
 					<% if @project.funded %>
 						<div class="form-block">
-							<%= f.label :result %>
+							<%= f.label :result, 'Result text' %>
 							<%= f.text_area :result %>
+						</div>
+						<div class="form-block">
+							<%= f.label :result_image %>
+							<%= f.text_field :result_image, placeholder: 'url' %>
+						</div>
+						<div class="form-block">
+							<%= f.label :result_youtube %>
+							<%= f.text_field :result_youtube, placeholder: 'url' %>
 						</div>
 					<% end %>
 					<div class="form-block">

@@ -78,7 +78,7 @@ class ProjectsController < OwnableController
 
 	def project_edit_params
 		if @project.funded && !@project.result
-			params.require(:project).permit(:result)
+			params.require(:project).permit(:result, :result_youtube, :result_image)
 		elsif !@project.published
 			params.require(:project).permit(:title, :description, :main_picture, :main_video, :realization_duration, :goal)
 		end

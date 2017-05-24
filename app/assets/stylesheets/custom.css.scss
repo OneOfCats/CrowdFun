@@ -357,7 +357,7 @@ h4 a{
   margin-bottom: 22px;
 }
 .vertical-block .pic{
-  height: 181px;
+  //height: 181px;
 }
 .vertical-block .pic img{
   width: 100%;
@@ -1059,6 +1059,19 @@ h1{
   display: block;
   margin: 0 auto;
   color: #5c5c5c;
+}
+
+.result-header{
+  display: block;
+  margin-top: 20px;
+}
+
+.result-image, .result-youtube{
+  margin-bottom: 20px;
+}
+
+.result-youtube iframe{
+  max-width: 100%;
 }
 
 @media (min-width: 1200px) {
