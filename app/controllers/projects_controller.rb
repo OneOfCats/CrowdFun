@@ -21,9 +21,6 @@ class ProjectsController < OwnableController
 		else
 			@voted = true
 		end
-		@preview_rating = @project.preview_rating
-		@admins_rating = @project.admins_rating
-		@result_rating = @project.result_rating
 	end
 
 	def edit
