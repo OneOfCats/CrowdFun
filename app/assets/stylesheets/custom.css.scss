@@ -393,6 +393,9 @@ h4 a{
 .vertical-block .rating-block{
   width: 23%;
 }
+.vertical-block .pic{
+  height: 240.5px;
+}
 
 .btn-hollow{
   display: inline-block;
@@ -633,7 +636,7 @@ h1{
   margin-bottom: 30px;
 }
 .project-info .pic img{
-  max-height: 278px;
+  //max-height: 278px;
 }
 .project-info .progress{
   margin-top: 10px;
@@ -899,7 +902,7 @@ h1{
 #notices{
   position: absolute;
   color: #acd373;
-  margin-top: 15px;
+  margin-top: 5px;
 }
 #notices .row *{
   color: #acd373;
