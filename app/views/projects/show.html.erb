@@ -76,7 +76,7 @@
         <p>
         	<%= @project.description %>
         </p>
-        <% if @project.result_image || @project.result || @project.result_youtube %>
+        <% if @project.result_image.present? || @project.result.present? || @project.result_youtube.present? %>
           <h2 class="result-header">Result:</h2>
         <% end %>
         <% if @project.result_image %>
