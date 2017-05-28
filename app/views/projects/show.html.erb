@@ -109,11 +109,11 @@
       <div class="row">
         <div class="col-xs-12">
           <ul>
-            <% if @project.updates %>
+            <% if @updates %>
               <li class="active"><a href="#updates" data-toggle="tab">Updates</a></li>
             <% end %>
             <li>
-              <a href="#comments-block" <% unless @project.updates %>class="active"<% end %> data-toggle="tab">Comments</a>
+              <a href="#comments-block" <% unless @updates %>class="active"<% end %> data-toggle="tab">Comments</a>
             </li>
           </ul>
         </div>
@@ -124,10 +124,10 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="tab-content">
-        	<% if @project.updates %>
+        	<% if @updates %>
 	          <div class="tab-pane fade in active" id="updates">
 	            <div class="project-updates">
-	            	<% @project.updates.each do |update| %>
+	            	<% @updates.each do |update| %>
 		              <div class="project-update">
 		                <div class="project-update-info">
 		                  <%= update.created_at.strftime "%B %d" %><br>

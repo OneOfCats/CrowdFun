@@ -6,11 +6,13 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.delete_all
-Project.delete_all
+Account.delete_all
+Update.delete_all
 Vote.delete_all
 Pledge.delete_all
+Project.delete_all
 Category.delete_all
+User.delete_all
 
 admins = []
 6.times do |i|

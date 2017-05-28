@@ -21,6 +21,8 @@ class ProjectsController < OwnableController
 		else
 			@voted = true
 		end
+
+		@updates = @project.updates.order created_at: :desc
 	end
 
 	def edit
