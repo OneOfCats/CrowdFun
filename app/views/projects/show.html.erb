@@ -79,19 +79,19 @@
         <% if @project.result_image.present? || @project.result.present? || @project.result_youtube.present? %>
           <h2 class="result-header">Result:</h2>
         <% end %>
-        <% if @project.result_image %>
+        <% if @project.result_image.present? %>
           <div class="result-image">
             <%= image_tag @project.result_image %>
           </div>
         <% end %>
-        <% if @project.result_youtube %>
+        <% if @project.result_youtube.present? %>
           <div class="result-youtube">
             <iframe width="420" height="315"
             src="<%= @project.result_youtube %>">
             </iframe>
           </div>
         <% end %>
-        <% if @project.result %>
+        <% if @project.result.present? %>
           <div class="result-text">
             <p>
               <%= @project.result %>
